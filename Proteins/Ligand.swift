@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct Ligand: Identifiable, Codable {
+struct Ligand: Identifiable {
     let id = UUID()
     let name: String
+    var pdbDoc: PdbDocument? = nil
     
 }
 

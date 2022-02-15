@@ -16,7 +16,7 @@ struct ProteinsApp: App {
     }
     
     init() {
-        
+        Configurator.configure()
     }
     func readLigandsList() -> [String] {
         if let path = Bundle.main.path(forResource: "ligands", ofType: "txt") {
