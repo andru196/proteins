@@ -20,6 +20,7 @@
 		B25CAA11278B50E200170C2D /* ProteinsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CAA10278B50E200170C2D /* ProteinsUITests.swift */; };
 		B25CAA13278B50E200170C2D /* ProteinsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CAA12278B50E200170C2D /* ProteinsUITestsLaunchTests.swift */; };
 		B25CAA20278B7CD100170C2D /* ProteinsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CAA1F278B7CD100170C2D /* ProteinsListViewModel.swift */; };
+		B271D5B827BD821300D6EF6D /* ScenekitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5B727BD821300D6EF6D /* ScenekitView.swift */; };
 		B2F9AB3527BBEB66006E82EA /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3427BBEB66006E82EA /* Files.swift */; };
 		B2F9AB3727BBECBC006E82EA /* PdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3627BBECBC006E82EA /* PdbClient.swift */; };
 		B2F9AB3A27BBEE0C006E82EA /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3927BBEE0C006E82EA /* Configurator.swift */; };
@@ -59,6 +60,7 @@
 		B25CAA10278B50E200170C2D /* ProteinsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsUITests.swift; sourceTree = "<group>"; };
 		B25CAA12278B50E200170C2D /* ProteinsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B25CAA1F278B7CD100170C2D /* ProteinsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsListViewModel.swift; sourceTree = "<group>"; };
+		B271D5B727BD821300D6EF6D /* ScenekitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenekitView.swift; sourceTree = "<group>"; };
 		B2F9AB3427BBEB66006E82EA /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		B2F9AB3627BBECBC006E82EA /* PdbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdbClient.swift; sourceTree = "<group>"; };
 		B2F9AB3927BBEE0C006E82EA /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				B2148E4B27B478C900ACFDAE /* LigandView.swift */,
 				B2F9AB3427BBEB66006E82EA /* Files.swift */,
 				B2F9AB3627BBECBC006E82EA /* PdbClient.swift */,
+				B271D5B727BD821300D6EF6D /* ScenekitView.swift */,
 			);
 			path = Proteins;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B271D5B827BD821300D6EF6D /* ScenekitView.swift in Sources */,
 				B25CA9F8278B50E100170C2D /* ContentView.swift in Sources */,
 				B2F9AB3A27BBEE0C006E82EA /* Configurator.swift in Sources */,
 				B25CAA20278B7CD100170C2D /* ProteinsListViewModel.swift in Sources */,

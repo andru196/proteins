@@ -14,6 +14,7 @@ struct PdbDocument {
 
 struct Atom {
     let name: String
+    let element: String
     let number: Int
     let x: Double
     let y: Double
@@ -37,6 +38,7 @@ class PDBReader {
             switch type {
             case .ATOM:
                 let atom = Atom(name: String(elements[2]),
+                                element: String(elements[11]),
                                 number: Int(String(elements[1]))! - 1,
                                 x: Double(String(elements[6]))!,
                                 y: Double(String(elements[7]))!,
@@ -46,8 +48,10 @@ class PDBReader {
                 let conn = Connect(first: Int(String(elements[1]))! - 1,
                                    second: Int(String(elements[2]))! - 1)
                 connections.append(conn)
+            case .END:
+                break
             default:
-                print("fck")
+                print("fck: \(line)")
                 //                        exit(1)
             }
         }
@@ -65,6 +69,7 @@ enum LineType: String {
     case ATOM = "ATOM"
     case HETATM = "HETATM"
     case CONECT = "CONECT"
+    case END = "END"
     
 }
 
