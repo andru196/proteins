@@ -24,7 +24,8 @@ struct LigandView: View {
     var selectedAtom: PDBAtom?
     var allAtoms = [SCNNode: PDBAtom]()
     var _scnView: ScenekitView!
-    
+    private let atomInfos: [String: AtomInfo]
+
     mutating func getSceneView() -> ScenekitView {
         if _scnView == nil {
             _scnView = (ScenekitView(scenekitClass: ScenekitClass(scene:  generate(scene: scene),
@@ -67,11 +68,12 @@ struct LigandView: View {
                 .zIndex(1)
             if showInfo {
                 if let node = _scnView.scenekitClass.selectedElement?.scnNode {
-                    if let atom = allAtoms[node] {
+                    if let atom = allAtoms[node], let atomInfo = atomInfos[atom.element] {
                         VStack
                         {
                             Text(atom.name)
                             Text(atom.element)
+                            Text(atomInfo.summary)
                         }
                         .frame(width: UIScreen.main.bounds.size.width,
                                height: UIScreen.main.bounds.height / 2,
@@ -90,10 +92,10 @@ struct LigandView: View {
         
     }
     
-    init(ligand: Ligand) {
+    init(ligand: Ligand, atomInfos: [String: AtomInfo]) {
         self.ligand = ligand
         self.client = Configurator.getClient()
-        
+        self.atomInfos = atomInfos
         if self.ligand.pdbDoc == nil {
             self.ligand.pdbDoc = client.getPdb(name: ligand.name)
         }
@@ -220,7 +222,7 @@ struct LigandView: View {
 
 struct LigandView_Previews: PreviewProvider {
     static var previews: some View {
-        LigandView(ligand: Ligand(name: "this"))
+        LigandView(ligand: Ligand(name: "this"), atomInfos: [String : AtomInfo]())
     }
 }
 

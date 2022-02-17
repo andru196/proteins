@@ -11,6 +11,8 @@ struct ContentView: View {
     @ObservedObject var ligands: Ligands
     @State var searchText: String = ""
     @State private var scale: CGFloat = 0.1
+    private let atomInfos: [String: AtomInfo]
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -19,7 +21,7 @@ struct ContentView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 List {
                     ForEach(ligands.items.filter{searchText.isEmpty || $0.name.contains(searchText)}, id: \.id) { ligand in
-                        NavigationLink(destination: LigandView(ligand: ligand)) {
+                        NavigationLink(destination: LigandView(ligand: ligand, atomInfos: atomInfos)) {
                             HStack {
                                 Text(ligand.name)
                                     .font(.headline)
@@ -38,13 +40,14 @@ struct ContentView: View {
         }
     }
     
-    init(ligands: Ligands) {
+    init(ligands: Ligands, atoms: [String: AtomInfo]) {
         self.ligands = ligands
+        self.atomInfos = atoms
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(ligands: Ligands(names: ["hz", "hz2"]))
+        ContentView(ligands: Ligands(names: ["hz", "hz2"]), atoms: [String: AtomInfo]())
     }
 }
