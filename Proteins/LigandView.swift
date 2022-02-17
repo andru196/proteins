@@ -21,15 +21,15 @@ struct LigandView: View {
             }
         }
     }
-    var selectedAtom: Atom?
-    var allAtoms = [SCNNode: Atom]()
+    var selectedAtom: PDBAtom?
+    var allAtoms = [SCNNode: PDBAtom]()
     var _scnView: ScenekitView!
     
     mutating func getSceneView() -> ScenekitView {
         if _scnView == nil {
             _scnView = (ScenekitView(scenekitClass: ScenekitClass(scene:  generate(scene: scene),
                                                                   isSelectedElement: $showInfo,
-                                                                 selectedElement: $selectedElement)))
+                                                                  selectedElement: $selectedElement)))
         }
         return _scnView
     }
@@ -43,7 +43,23 @@ struct LigandView: View {
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            
+            Button(action: {
+                let colors = [UIColor.black,
+                              UIColor.gray,
+                              UIColor.blue,
+                              UIColor.darkGray,
+                              UIColor.magenta,
+                              UIColor.purple,
+                              UIColor.yellow,
+                              UIColor.green,
+                              UIColor.red,
+                              UIColor.white]
+                
+                scene.background.contents = colors.randomElement()
+            }) {
+                Image(systemName: "paintbrush")
+                    .padding(25)
+            } .zIndex(3)
             updateSelectionBind()
                 .frame(width: UIScreen.main.bounds.size.width,
                        height: UIScreen.main.bounds.height,
@@ -51,20 +67,20 @@ struct LigandView: View {
                 .zIndex(1)
             if showInfo {
                 if let node = _scnView.scenekitClass.selectedElement?.scnNode {
-                if let atom = allAtoms[node] {
-                VStack
-                {
-                    Text(atom.name)
-                    Text(atom.element)
+                    if let atom = allAtoms[node] {
+                        VStack
+                        {
+                            Text(atom.name)
+                            Text(atom.element)
+                        }
+                        .frame(width: UIScreen.main.bounds.size.width,
+                               height: UIScreen.main.bounds.height / 2,
+                               alignment: .top)
+                        .zIndex(2)
+                        .background(Color(UIColor.gray.withAlphaComponent(0.7)))
+                        .addBorder(Color.black, width: 1, cornerRadius: 20)
+                    }
                 }
-                    .frame(width: UIScreen.main.bounds.size.width,
-                           height: UIScreen.main.bounds.height / 2,
-                           alignment: .top)
-                    .zIndex(2)
-                    .background(Color(UIColor.gray.withAlphaComponent(0.7)))
-                    .addBorder(Color.black, width: 1, cornerRadius: 15)
-            }
-            }
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -96,6 +112,7 @@ struct LigandView: View {
         rezCamera.camera = camera
         rezCamera.position = SCNVector3(x: -20, y: 15, z: 20)
         rezCamera.constraints = [constraint]
+        
         let ambientLight = SCNLight()
         ambientLight.color = UIColor.darkGray
         ambientLight.type = .ambient
@@ -144,7 +161,7 @@ struct LigandView: View {
             material.transparencyMode = .dualLayer
             material.fresnelExponent = 1.5
             material.shininess = 50
-            material.reflective.contents = 0.7
+            material.reflective.contents = 0.4
             spheres[name.key]!.materials = [material]
             
         }
@@ -157,6 +174,19 @@ struct LigandView: View {
                                          y: Float(x.y),
                                          z: Float(x.z))
             sphere.name = "\(x.number): \(x.name)"
+            if x.element == "C" {
+                let omniLight = SCNLight()
+                omniLight.type = .omni
+                omniLight.castsShadow = true
+                omniLight.spotInnerAngle = 70.0
+                omniLight.spotOuterAngle = 90.0
+                omniLight.zFar = 500
+                
+                let light = SCNNode()
+                light.light = omniLight
+                light.position = sphere.position
+                scene.rootNode.addChildNode(light)
+            }
             scene.rootNode.addChildNode(sphere)
             allAtoms[sphere] = x
         }
@@ -179,7 +209,7 @@ struct LigandView: View {
         }
         
         scene.rootNode.addChildNode(lightA)
-        scene.rootNode.addChildNode(light)
+        //scene.rootNode.addChildNode(light)
         //        scene.rootNode.addChildNode(rezCamera)
         scene.background.contents = UIColor.white
         return scene
@@ -345,6 +375,6 @@ extension View {
     public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
         let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
         return clipShape(roundedRect)
-             .overlay(roundedRect.strokeBorder(content, lineWidth: width))
+            .overlay(roundedRect.strokeBorder(content, lineWidth: width))
     }
 }

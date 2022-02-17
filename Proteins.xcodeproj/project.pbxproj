@@ -21,6 +21,8 @@
 		B25CAA13278B50E200170C2D /* ProteinsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CAA12278B50E200170C2D /* ProteinsUITestsLaunchTests.swift */; };
 		B25CAA20278B7CD100170C2D /* ProteinsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CAA1F278B7CD100170C2D /* ProteinsListViewModel.swift */; };
 		B271D5B827BD821300D6EF6D /* ScenekitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5B727BD821300D6EF6D /* ScenekitView.swift */; };
+		B271D5BA27BEDEB600D6EF6D /* PeriodicTableJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = B271D5B927BEDEB600D6EF6D /* PeriodicTableJSON.json */; };
+		B271D5BC27BEDFBD00D6EF6D /* AtomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */; };
 		B2F9AB3527BBEB66006E82EA /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3427BBEB66006E82EA /* Files.swift */; };
 		B2F9AB3727BBECBC006E82EA /* PdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3627BBECBC006E82EA /* PdbClient.swift */; };
 		B2F9AB3A27BBEE0C006E82EA /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3927BBEE0C006E82EA /* Configurator.swift */; };
@@ -61,6 +63,8 @@
 		B25CAA12278B50E200170C2D /* ProteinsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B25CAA1F278B7CD100170C2D /* ProteinsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsListViewModel.swift; sourceTree = "<group>"; };
 		B271D5B727BD821300D6EF6D /* ScenekitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenekitView.swift; sourceTree = "<group>"; };
+		B271D5B927BEDEB600D6EF6D /* PeriodicTableJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PeriodicTableJSON.json; sourceTree = "<group>"; };
+		B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomInfo.swift; sourceTree = "<group>"; };
 		B2F9AB3427BBEB66006E82EA /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		B2F9AB3627BBECBC006E82EA /* PdbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdbClient.swift; sourceTree = "<group>"; };
 		B2F9AB3927BBEE0C006E82EA /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
@@ -134,8 +138,10 @@
 				B2148E4927B46D0100ACFDAE /* Ligand.swift */,
 				B2148E4B27B478C900ACFDAE /* LigandView.swift */,
 				B2F9AB3427BBEB66006E82EA /* Files.swift */,
+				B271D5B927BEDEB600D6EF6D /* PeriodicTableJSON.json */,
 				B2F9AB3627BBECBC006E82EA /* PdbClient.swift */,
 				B271D5B727BD821300D6EF6D /* ScenekitView.swift */,
+				B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */,
 			);
 			path = Proteins;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 			files = (
 				B25CA9FD278B50E200170C2D /* Preview Assets.xcassets in Resources */,
 				B2148E4827B4659900ACFDAE /* ligands.txt in Resources */,
+				B271D5BA27BEDEB600D6EF6D /* PeriodicTableJSON.json in Resources */,
 				B25CA9FA278B50E200170C2D /* Assets.xcassets in Resources */,
 				B2148E4E27B8228B00ACFDAE /* 011_ideal.pdb.txt in Resources */,
 			);
@@ -314,6 +321,7 @@
 				B2148E5127B825BA00ACFDAE /* PDBReader.swift in Sources */,
 				B2148E4C27B478C900ACFDAE /* LigandView.swift in Sources */,
 				B25CA9F6278B50E100170C2D /* ProteinsApp.swift in Sources */,
+				B271D5BC27BEDFBD00D6EF6D /* AtomInfo.swift in Sources */,
 				B2F9AB3727BBECBC006E82EA /* PdbClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

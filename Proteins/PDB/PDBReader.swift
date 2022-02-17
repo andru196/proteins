@@ -8,11 +8,11 @@
 import Foundation
 
 struct PdbDocument {
-    let atoms: [Atom]
-    let connections: [Connect]
+    let atoms: [PDBAtom]
+    let connections: [PDBConnect]
 }
 
-struct Atom {
+struct PDBAtom {
     let name: String
     let element: String
     let number: Int
@@ -21,15 +21,15 @@ struct Atom {
     let z: Double
 }
 
-struct Connect {
+struct PDBConnect {
     let first: Int
     let second: Int
 }
 
 class PDBReader {
     func read(text: String) -> PdbDocument {
-        var atoms = [Atom]()
-        var connections = [Connect]()
+        var atoms = [PDBAtom]()
+        var connections = [PDBConnect]()
         let lines = text.split(separator: "\n")
 
         for line in lines {
@@ -37,7 +37,7 @@ class PDBReader {
             let type = LineType(rawValue: String(elements[0]))
             switch type {
             case .ATOM:
-                let atom = Atom(name: String(elements[2]),
+                let atom = PDBAtom(name: String(elements[2]),
                                 element: String(elements[11]),
                                 number: Int(String(elements[1]))! - 1,
                                 x: Double(String(elements[6]))!,
@@ -45,7 +45,7 @@ class PDBReader {
                                 z: Double(String(elements[8]))!)
                 atoms.append(atom)
             case .CONECT:
-                let conn = Connect(first: Int(String(elements[1]))! - 1,
+                let conn = PDBConnect(first: Int(String(elements[1]))! - 1,
                                    second: Int(String(elements[2]))! - 1)
                 connections.append(conn)
             case .END:
