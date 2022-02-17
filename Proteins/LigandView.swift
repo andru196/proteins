@@ -12,14 +12,66 @@ struct LigandView: View {
     
     var client: PdbClient!
     
+    @State var showInfo: Bool = false
     @State var scene = SCNScene()
+    @State var selectedElement: Node? = nil {
+        mutating didSet {
+            if let atom = selectedElement?.scnNode {
+                selectedAtom = allAtoms[atom]
+            }
+        }
+    }
+    var selectedAtom: Atom?
+    var allAtoms = [SCNNode: Atom]()
+    var _scnView: ScenekitView!
+    
+    mutating func getSceneView() -> ScenekitView {
+        if _scnView == nil {
+            _scnView = (ScenekitView(scenekitClass: ScenekitClass(scene:  generate(scene: scene),
+                                                                  isSelectedElement: $showInfo,
+                                                                 selectedElement: $selectedElement)))
+        }
+        return _scnView
+    }
+    
+    func updateSelectionBind() -> ScenekitView {
+        _scnView.updateSelectionBind(isSelectedElement: $showInfo, selectedElement: $selectedElement)
+        return _scnView
+    }
+    
     var ligand: Ligand!
     
     var body: some View {
-//        SceneView(scene: generate(scene: scene),
-//                  options: [.allowsCameraControl, .autoenablesDefaultLighting])
-        ScenekitView(scenekitClass: ScenekitClass(scene:  generate(scene: scene)))
-            .edgesIgnoringSafeArea(.all)
+        ZStack(alignment: .bottomTrailing) {
+            
+            updateSelectionBind()
+                .frame(width: UIScreen.main.bounds.size.width,
+                       height: UIScreen.main.bounds.height,
+                       alignment: .center)
+                .zIndex(1)
+            if showInfo {
+                if let node = _scnView.scenekitClass.selectedElement?.scnNode {
+                if let atom = allAtoms[node] {
+                VStack
+                {
+                    Text(atom.name)
+                    Text(atom.element)
+                }
+                    .frame(width: UIScreen.main.bounds.size.width,
+                           height: UIScreen.main.bounds.height / 2,
+                           alignment: .top)
+                    .zIndex(2)
+                    .background(Color(UIColor.gray.withAlphaComponent(0.7)))
+                    .addBorder(Color.black, width: 1, cornerRadius: 15)
+            }
+            }
+            }
+        }
+        .edgesIgnoringSafeArea(.all)
+        .frame(width: UIScreen.main.bounds.size.width,
+               height: UIScreen.main.bounds.height,
+               alignment: .center)
+        
     }
     
     init(ligand: Ligand) {
@@ -29,9 +81,10 @@ struct LigandView: View {
         if self.ligand.pdbDoc == nil {
             self.ligand.pdbDoc = client.getPdb(name: ligand.name)
         }
+        getSceneView()
     }
     
-    func generate(scene: SCNScene) -> SCNScene {
+    mutating func generate(scene: SCNScene) -> SCNScene {
         let center = SCNNode()
         center.position = SCNVector3(x: 0, y: 0, z: 0)
         let constraint = SCNLookAtConstraint(target: center)
@@ -84,21 +137,28 @@ struct LigandView: View {
                      "S": UIColor.yellow,
                      "P": UIColor.purple,
                      "XXX": UIColor.magenta] {
-            spheres[name.key] = SCNSphere(radius: 0.5)
+            spheres[name.key] = SCNSphere(radius: 0.35)
             let material = SCNMaterial()
-            material.diffuse.contents = name.value
+            material.diffuse.contents = name.value.withAlphaComponent(0.85)
+            material.lightingModel = .blinn
+            material.transparencyMode = .dualLayer
+            material.fresnelExponent = 1.5
+            material.shininess = 50
+            material.reflective.contents = 0.7
             spheres[name.key]!.materials = [material]
+            
         }
         
         for x in ligand.pdbDoc!.atoms {
             let sphereG = spheres[x.element] ?? spheres["XXX"]!
-            print(sphereG)
+            //print(sphereG)
             let sphere = SCNNode(geometry: sphereG)
             sphere.position = SCNVector3(x: Float(x.x),
                                          y: Float(x.y),
                                          z: Float(x.z))
             sphere.name = "\(x.number): \(x.name)"
             scene.rootNode.addChildNode(sphere)
+            allAtoms[sphere] = x
         }
         
         for x in ligand.pdbDoc!.connections {
@@ -111,7 +171,7 @@ struct LigandView: View {
             
             stick = stick.buildLineInTwoPointsWithRotation(from: SCNVector3(x: Float(a1.x), y: Float(a1.y), z: Float(a1.z)),
                                                            to: SCNVector3(x: Float(a2.x), y: Float(a2.y), z: Float(a2.z)),
-                                                           radius: 0.15,
+                                                           radius: 0.1,
                                                            color: UIColor.gray)
             stick.name = "\(x.first) - \(x.second)"
             scene.rootNode.addChildNode(stick)
@@ -280,3 +340,11 @@ extension HasApply {
 
 extension SCNSphere: HasApply { }
 extension SCNMaterial: HasApply { }
+
+extension View {
+    public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
+        let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
+        return clipShape(roundedRect)
+             .overlay(roundedRect.strokeBorder(content, lineWidth: width))
+    }
+}
