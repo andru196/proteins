@@ -65,6 +65,7 @@
 		B271D5B727BD821300D6EF6D /* ScenekitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenekitView.swift; sourceTree = "<group>"; };
 		B271D5B927BEDEB600D6EF6D /* PeriodicTable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PeriodicTable.json; sourceTree = "<group>"; };
 		B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomInfo.swift; sourceTree = "<group>"; };
+		B271D5BD27BFC5F100D6EF6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B2F9AB3427BBEB66006E82EA /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		B2F9AB3627BBECBC006E82EA /* PdbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdbClient.swift; sourceTree = "<group>"; };
 		B2F9AB3927BBEE0C006E82EA /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 		B25CA9F4278B50E100170C2D /* Proteins */ = {
 			isa = PBXGroup;
 			children = (
+				B271D5BD27BFC5F100D6EF6D /* Info.plist */,
 				B2F9AB3827BBEDF5006E82EA /* DI */,
 				B2148E4F27B825A400ACFDAE /* PDB */,
 				B2148E4727B4659900ACFDAE /* ligands.txt */,
@@ -486,6 +488,9 @@
 				DEVELOPMENT_TEAM = 76HC36583V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Proteins/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save Image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -515,6 +520,9 @@
 				DEVELOPMENT_TEAM = 76HC36583V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Proteins/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save Image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
