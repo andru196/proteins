@@ -17,6 +17,7 @@ struct ProteinsApp: App {
     
     init() {
         Configurator.configure()
+        UITableView.appearance().backgroundColor = .clear
     }
     func readLigandsList() -> [String] {
         if let path = Bundle.main.path(forResource: "ligands", ofType: "txt") {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SceneKit
+import Foundation
 
 struct LigandView: View {
     
@@ -25,7 +26,7 @@ struct LigandView: View {
     var allAtoms = [SCNNode: PDBAtom]()
     var _scnView: ScenekitView!
     private let atomInfos: [String: AtomInfo]
-
+    
     mutating func getSceneView() -> ScenekitView {
         if _scnView == nil {
             _scnView = (ScenekitView(scenekitClass: ScenekitClass(scene:  generate(scene: scene),
@@ -44,23 +45,6 @@ struct LigandView: View {
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Button(action: {
-                let colors = [UIColor.black,
-                              UIColor.gray,
-                              UIColor.blue,
-                              UIColor.darkGray,
-                              UIColor.magenta,
-                              UIColor.purple,
-                              UIColor.yellow,
-                              UIColor.green,
-                              UIColor.red,
-                              UIColor.white]
-                
-                scene.background.contents = colors.randomElement()
-            }) {
-                Image(systemName: "paintbrush")
-                    .padding(25)
-            } .zIndex(3)
             updateSelectionBind()
                 .frame(width: UIScreen.main.bounds.size.width,
                        height: UIScreen.main.bounds.height,
@@ -71,18 +55,89 @@ struct LigandView: View {
                     if let atom = allAtoms[node], let atomInfo = atomInfos[atom.element] {
                         VStack
                         {
-                            Text(atom.name)
-                            Text(atom.element)
-                            Text(atomInfo.summary)
+                            Text(atomInfo.name)
+                                .font(.largeTitle)
+                            HStack{
+                                Text(atom.element).fontWeight(.bold)
+                                Text(atom.name)
+                                Link("Wikipedia", destination: URL(string: atomInfo.source)!)
+                                    .padding(.leading, 10)
+                            }
+                            
+                            if let dic: KeyValuePairs<String, String> =
+                                ["Summary": atomInfo.summary,
+                                 "Appearance": atomInfo.appearance ?? "NULL",
+                                 "Atomic Mass": String(atomInfo.atomicMass) ,
+                                 "Boil": String(atomInfo.boil ?? -1) ,
+                                 "Category": atomInfo.catigory ?? "NULL",
+                                 "Density": String(atomInfo.density ?? -1),
+                                 "Discover By": atomInfo.discoverVy ?? "NULL",
+                                 "Melt": String(atomInfo.melt ?? -1) ,
+                                 "Molar Heat": String(atomInfo.molarHeat ?? -1) ,
+                                 "Named By": atomInfo.namedBy ?? "NULL",
+                                 "Number": String(atomInfo.number) ,
+                                 "Period": String(atomInfo.period) ,
+                                 "Phase": atomInfo.phase ,
+                                 "X Posistion": String(atomInfo.xpos) ,
+                                 "Y Position": String(atomInfo.ypos) ,
+                                 "Shells": " ".join(elements: atomInfo.shells.map{String($0)}),
+                                 "Electron Configuration": atomInfo.electronConfiguration ,
+                                 "Electron Configuration Semantic": atomInfo.electronConfigurationSemantic ,
+                                 "Electron Affinity": String(atomInfo.electronAffinity ?? -1) ,
+                                 "Electronegativity Pauling": String(atomInfo.electronegativityPauling ?? -1) ,
+                                 "Ionization Energies": " ".join(elements: atomInfo.ionizationEnergies.map{String($0)}),
+                                 "CPK Hex": atomInfo.cpkHex ?? "NULL"
+                                ] {
+                                List {
+                                    ForEach (dic, id: \.key) { kv in
+                                        Section(header:Text(kv.key)){
+                                            
+                                            Text(kv.value)
+                                        }
+                                        .listRowBackground(Color.clear)
+                                        
+                                    }
+                                }.listStyle(GroupedListStyle())
+                                    .background(Color.clear)
+                            }
+                            
                         }
+                        .padding(10)
                         .frame(width: UIScreen.main.bounds.size.width,
                                height: UIScreen.main.bounds.height / 2,
                                alignment: .top)
-                        .zIndex(2)
+                        .zIndex(3)
                         .background(Color(UIColor.gray.withAlphaComponent(0.7)))
                         .addBorder(Color.black, width: 1, cornerRadius: 20)
                     }
                 }
+            }
+            else {
+                HStack {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "square.and.arrow.up")
+                            .padding(30)
+                    } .zIndex(3)
+                    Button(action: {
+                        let colors = [UIColor.black,
+                                      UIColor.gray,
+                                      UIColor.blue,
+                                      UIColor.darkGray,
+                                      UIColor.magenta,
+                                      UIColor.purple,
+                                      UIColor.yellow,
+                                      UIColor.green,
+                                      UIColor.red,
+                                      UIColor.white]
+                        
+                        scene.background.contents = colors.randomElement()
+                    }) {
+                        Image(systemName: "paintbrush")
+                            .padding(30)
+                    }
+                }.zIndex(2)
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -378,5 +433,15 @@ extension View {
         let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
         return clipShape(roundedRect)
             .overlay(roundedRect.strokeBorder(content, lineWidth: width))
+    }
+}
+
+extension String {
+    func join(elements: [String]) -> String {
+        var rez = ""
+        for s in elements {
+            rez += s + self
+        }
+        return rez
     }
 }

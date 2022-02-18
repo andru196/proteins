@@ -12,7 +12,6 @@ struct ContentView: View {
     @State var searchText: String = ""
     @State private var scale: CGFloat = 0.1
     private let atomInfos: [String: AtomInfo]
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -36,6 +35,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                .background(Color.init(uiColor: UIColor.gray.withAlphaComponent(0.25)))
             }
         }
     }
