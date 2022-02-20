@@ -9,16 +9,31 @@ import SwiftUI
 
 @main
 struct ProteinsApp: App {
+
+    var logginView: LoginView!
+    
     var body: some Scene {
         WindowGroup {
-            ContentView(ligands: Ligands(names: readLigandsList()), atoms: readAtomInfos())
+            logginView
         }
+    }
+    func prepareView() -> LoginView{
+        var lview = LoginView()
+        let box = Box(value: lview)
+        let lst = ContentView(ligands: Ligands(names: readLigandsList()), atoms: readAtomInfos(), logView: box, loginState: lview.model)
+        lview.lock(nextView: lst)
+        return lview
     }
     
     init() {
+        
         Configurator.configure()
+        self.logginView = prepareView()
         UITableView.appearance().backgroundColor = .clear
+        
     }
+    
+    
     func readLigandsList() -> [String] {
         if let path = Bundle.main.path(forResource: "ligands", ofType: "txt") {
             do {

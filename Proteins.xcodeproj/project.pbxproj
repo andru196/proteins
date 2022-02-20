@@ -12,6 +12,7 @@
 		B2148E4C27B478C900ACFDAE /* LigandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2148E4B27B478C900ACFDAE /* LigandView.swift */; };
 		B2148E4E27B8228B00ACFDAE /* 011_ideal.pdb.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2148E4D27B8228B00ACFDAE /* 011_ideal.pdb.txt */; };
 		B2148E5127B825BA00ACFDAE /* PDBReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2148E5027B825BA00ACFDAE /* PDBReader.swift */; };
+		B2454B8E27C2F19400750B0E /* Temprary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454B8D27C2F19400750B0E /* Temprary.swift */; };
 		B25CA9F6278B50E100170C2D /* ProteinsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CA9F5278B50E100170C2D /* ProteinsApp.swift */; };
 		B25CA9F8278B50E100170C2D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CA9F7278B50E100170C2D /* ContentView.swift */; };
 		B25CA9FA278B50E200170C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B25CA9F9278B50E200170C2D /* Assets.xcassets */; };
@@ -23,6 +24,9 @@
 		B271D5B827BD821300D6EF6D /* ScenekitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5B727BD821300D6EF6D /* ScenekitView.swift */; };
 		B271D5BA27BEDEB600D6EF6D /* PeriodicTable.json in Resources */ = {isa = PBXBuildFile; fileRef = B271D5B927BEDEB600D6EF6D /* PeriodicTable.json */; };
 		B271D5BC27BEDFBD00D6EF6D /* AtomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */; };
+		B271D5BF27BFEA8E00D6EF6D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5BE27BFEA8E00D6EF6D /* LoginView.swift */; };
+		B271D5C127BFEB3500D6EF6D /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5C027BFEB3500D6EF6D /* BaseView.swift */; };
+		B271D5C527BFFFD600D6EF6D /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5C427BFFFD600D6EF6D /* Box.swift */; };
 		B2F9AB3527BBEB66006E82EA /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3427BBEB66006E82EA /* Files.swift */; };
 		B2F9AB3727BBECBC006E82EA /* PdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3627BBECBC006E82EA /* PdbClient.swift */; };
 		B2F9AB3A27BBEE0C006E82EA /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3927BBEE0C006E82EA /* Configurator.swift */; };
@@ -51,6 +55,7 @@
 		B2148E4B27B478C900ACFDAE /* LigandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandView.swift; sourceTree = "<group>"; };
 		B2148E4D27B8228B00ACFDAE /* 011_ideal.pdb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 011_ideal.pdb.txt; sourceTree = "<group>"; };
 		B2148E5027B825BA00ACFDAE /* PDBReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDBReader.swift; sourceTree = "<group>"; };
+		B2454B8D27C2F19400750B0E /* Temprary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temprary.swift; sourceTree = "<group>"; };
 		B25CA9F2278B50E100170C2D /* Proteins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proteins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B25CA9F5278B50E100170C2D /* ProteinsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsApp.swift; sourceTree = "<group>"; };
 		B25CA9F7278B50E100170C2D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +71,9 @@
 		B271D5B927BEDEB600D6EF6D /* PeriodicTable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PeriodicTable.json; sourceTree = "<group>"; };
 		B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomInfo.swift; sourceTree = "<group>"; };
 		B271D5BD27BFC5F100D6EF6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B271D5BE27BFEA8E00D6EF6D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B271D5C027BFEB3500D6EF6D /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		B271D5C427BFFFD600D6EF6D /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		B2F9AB3427BBEB66006E82EA /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		B2F9AB3627BBECBC006E82EA /* PdbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdbClient.swift; sourceTree = "<group>"; };
 		B2F9AB3927BBEE0C006E82EA /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
@@ -104,6 +112,14 @@
 			path = PDB;
 			sourceTree = "<group>";
 		};
+		B2454B8C27C2F17D00750B0E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B2454B8D27C2F19400750B0E /* Temprary.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		B25CA9E9278B50E100170C2D = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +143,7 @@
 		B25CA9F4278B50E100170C2D /* Proteins */ = {
 			isa = PBXGroup;
 			children = (
+				B2454B8C27C2F17D00750B0E /* Extensions */,
 				B271D5BD27BFC5F100D6EF6D /* Info.plist */,
 				B2F9AB3827BBEDF5006E82EA /* DI */,
 				B2148E4F27B825A400ACFDAE /* PDB */,
@@ -144,6 +161,9 @@
 				B2F9AB3627BBECBC006E82EA /* PdbClient.swift */,
 				B271D5B727BD821300D6EF6D /* ScenekitView.swift */,
 				B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */,
+				B271D5BE27BFEA8E00D6EF6D /* LoginView.swift */,
+				B271D5C027BFEB3500D6EF6D /* BaseView.swift */,
+				B271D5C427BFFFD600D6EF6D /* Box.swift */,
 			);
 			path = Proteins;
 			sourceTree = "<group>";
@@ -314,12 +334,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2454B8E27C2F19400750B0E /* Temprary.swift in Sources */,
 				B271D5B827BD821300D6EF6D /* ScenekitView.swift in Sources */,
+				B271D5C527BFFFD600D6EF6D /* Box.swift in Sources */,
+				B271D5C127BFEB3500D6EF6D /* BaseView.swift in Sources */,
 				B25CA9F8278B50E100170C2D /* ContentView.swift in Sources */,
 				B2F9AB3A27BBEE0C006E82EA /* Configurator.swift in Sources */,
 				B25CAA20278B7CD100170C2D /* ProteinsListViewModel.swift in Sources */,
 				B2F9AB3527BBEB66006E82EA /* Files.swift in Sources */,
 				B2148E4A27B46D0100ACFDAE /* Ligand.swift in Sources */,
+				B271D5BF27BFEA8E00D6EF6D /* LoginView.swift in Sources */,
 				B2148E5127B825BA00ACFDAE /* PDBReader.swift in Sources */,
 				B2148E4C27B478C900ACFDAE /* LigandView.swift in Sources */,
 				B25CA9F6278B50E100170C2D /* ProteinsApp.swift in Sources */,
@@ -493,7 +517,6 @@
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save Image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -525,7 +548,6 @@
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save Image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

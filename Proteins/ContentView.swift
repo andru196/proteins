@@ -7,10 +7,22 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ContentView: BaseView {
+    var loginableModel: Model
+    
+    var loginView: Box<LoginView>
+    
+    
+    @Environment(\.scenePhase) var _scenePhase
+    
+    
     @ObservedObject var ligands: Ligands
     @State var searchText: String = ""
     @State private var scale: CGFloat = 0.1
+    
+    @State private var action: UUID? = nil
+    
+    
     private let atomInfos: [String: AtomInfo]
     var body: some View {
         NavigationView {
@@ -20,7 +32,7 @@ struct ContentView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 List {
                     ForEach(ligands.items.filter{searchText.isEmpty || $0.name.contains(searchText)}, id: \.id) { ligand in
-                        NavigationLink(destination: LigandView(ligand: ligand, atomInfos: atomInfos)) {
+                        NavigationLink(destination: LigandView(ligand: ligand, atomInfos: atomInfos, logBox: loginView, loginState: loginableModel)) {
                             HStack {
                                 Text(ligand.name)
                                     .font(.headline)
@@ -37,17 +49,16 @@ struct ContentView: View {
                 }
                 .background(Color.init(uiColor: UIColor.gray.withAlphaComponent(0.25)))
             }
+        }.onChange(of: _scenePhase) { _ in
+            loginableModel.lock = true
+            lock()
         }
     }
     
-    init(ligands: Ligands, atoms: [String: AtomInfo]) {
+    init(ligands: Ligands, atoms: [String: AtomInfo], logView: Box<LoginView>, loginState: Model) {
         self.ligands = ligands
         self.atomInfos = atoms
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(ligands: Ligands(names: ["hz", "hz2"]), atoms: [String: AtomInfo]())
+        self.loginView = logView
+        self.loginableModel = loginState
     }
 }
