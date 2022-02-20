@@ -45,9 +45,12 @@ class PDBReader {
                                 z: Double(String(elements[8]))!)
                 atoms.append(atom)
             case .CONECT:
-                let conn = PDBConnect(first: Int(String(elements[1]))! - 1,
-                                   second: Int(String(elements[2]))! - 1)
-                connections.append(conn)
+                let target = Int(String(elements[1]))! - 1
+                for element in elements[1...] {
+                    let conn = PDBConnect(first: target,
+                                       second: Int(String(element))! - 1)
+                    connections.append(conn)
+                }
             case .END:
                 break
             default:
