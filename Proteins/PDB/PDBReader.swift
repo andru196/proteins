@@ -24,6 +24,7 @@ struct PDBAtom {
 struct PDBConnect {
     let first: Int
     let second: Int
+    var isDouble = false
 }
 
 class PDBReader {
@@ -46,9 +47,20 @@ class PDBReader {
                 atoms.append(atom)
             case .CONECT:
                 let target = Int(String(elements[1]))! - 1
-                for element in elements[1...] {
-                    let conn = PDBConnect(first: target,
+                for element in elements[2...] {
+                    var conn = PDBConnect(first: target,
                                        second: Int(String(element))! - 1)
+                    var j = -1
+                    if let _ = connections.first(where: { x in
+                        j += 1
+                        return (x.first == conn.first && x.second == conn.second)
+                        || (x.second == conn.first && x.first == conn.second )
+                        
+                    })
+                    {
+                        connections.remove(at: j)
+                        conn.isDouble = true
+                    }
                     connections.append(conn)
                 }
             case .END:

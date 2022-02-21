@@ -278,17 +278,40 @@ struct LigandView: BaseView {
         for x in ligand.pdbDoc!.connections {
             let a1 = ligand.pdbDoc!.atoms[x.first]
             let a2 = ligand.pdbDoc!.atoms[x.second]
-            var stick = SCNNode()
-            //            stick.position = SCNVector3(x: Float((a1.x + a2.x) / 2),
-            //                                        y: Float((a1.y + a2.y) / 2),
-            //                                        z: Float((a1.z + a2.z) / 2))
             
-            stick = stick.buildLineInTwoPointsWithRotation(from: SCNVector3(x: Float(a1.x), y: Float(a1.y), z: Float(a1.z)),
-                                                           to: SCNVector3(x: Float(a2.x), y: Float(a2.y), z: Float(a2.z)),
-                                                           radius: 0.1,
-                                                           color: UIColor.gray)
-            stick.name = "\(x.first) - \(x.second)"
-            scene.rootNode.addChildNode(stick)
+            if !x.isDouble {
+                var stick = SCNNode()
+                stick = stick.buildLineInTwoPointsWithRotation(from: SCNVector3(x: Float(a1.x), y: Float(a1.y), z: Float(a1.z)),
+                                                               to: SCNVector3(x: Float(a2.x), y: Float(a2.y), z: Float(a2.z)),
+                                                               radius: 0.1,
+                                                               color: UIColor.gray)
+                stick.name = "\(x.first) - \(x.second)"
+                scene.rootNode.addChildNode(stick)
+            } else {
+                let radius = Float(0.05)
+                var stick1 = SCNNode()
+                stick1 = stick1.buildLineInTwoPointsWithRotation(from: SCNVector3(x: Float(a1.x) + radius,
+                                                                                  y: Float(a1.y) + radius,
+                                                                                  z: Float(a1.z) + radius),
+                                                               to: SCNVector3(x: Float(a2.x) + radius, y: Float(a2.y) + radius,
+                                                                              z: Float(a2.z) + radius),
+                                                               radius: CGFloat(radius),
+                                                               color: UIColor.gray)
+                stick1.name = "1: \(x.first) - \(x.second)"
+                scene.rootNode.addChildNode(stick1)
+                
+                var stick2 = SCNNode()
+                stick2 = stick2.buildLineInTwoPointsWithRotation(from: SCNVector3(x: Float(a1.x) - radius,
+                                                                                  y: Float(a1.y) - radius,
+                                                                                  z: Float(a1.z) - radius),
+                                                               to: SCNVector3(x: Float(a2.x) - radius,
+                                                                              y: Float(a2.y) - radius,
+                                                                              z: Float(a2.z) - radius),
+                                                               radius: CGFloat(radius),
+                                                               color: UIColor.gray)
+                stick2.name = "2: \(x.first) - \(x.second)"
+                scene.rootNode.addChildNode(stick2)
+            }
             
         }
         
