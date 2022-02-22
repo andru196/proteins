@@ -42,10 +42,11 @@ class PDBReader {
                         
                     })
                     {
-                        connections.remove(at: j)
-                        //conn.isDouble = true
+                        // connections.remove(at: j)
+                        // conn.isDouble = true
+                    } else {
+                        connections.append(conn)
                     }
-                    connections.append(conn)
                 }
             case .END:
                 break

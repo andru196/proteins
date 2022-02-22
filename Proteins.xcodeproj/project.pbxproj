@@ -22,6 +22,7 @@
 		B2454B9E27C5196400750B0E /* PDBAtom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454B9D27C5196400750B0E /* PDBAtom.swift */; };
 		B2454BA027C5197800750B0E /* PdbDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454B9F27C5197800750B0E /* PdbDocument.swift */; };
 		B2454BA427C538FE00750B0E /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454BA327C538FE00750B0E /* Bool.swift */; };
+		B2454BA627C569DC00750B0E /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454BA527C569DC00750B0E /* Array.swift */; };
 		B25CA9F6278B50E100170C2D /* ProteinsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CA9F5278B50E100170C2D /* ProteinsApp.swift */; };
 		B25CA9F8278B50E100170C2D /* LigandsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CA9F7278B50E100170C2D /* LigandsListView.swift */; };
 		B25CA9FA278B50E200170C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B25CA9F9278B50E200170C2D /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 		B2454B9D27C5196400750B0E /* PDBAtom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDBAtom.swift; sourceTree = "<group>"; };
 		B2454B9F27C5197800750B0E /* PdbDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdbDocument.swift; sourceTree = "<group>"; };
 		B2454BA327C538FE00750B0E /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
+		B2454BA527C569DC00750B0E /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		B25CA9F2278B50E100170C2D /* Proteins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proteins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B25CA9F5278B50E100170C2D /* ProteinsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsApp.swift; sourceTree = "<group>"; };
 		B25CA9F7278B50E100170C2D /* LigandsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandsListView.swift; sourceTree = "<group>"; };
@@ -139,7 +141,7 @@
 				B2454B9127C516AA00750B0E /* SCNVector3.swift */,
 				B2454B9327C5171600750B0E /* SCNNode.swift */,
 				B2454B9727C518B100750B0E /* VIew.swift */,
-				B2454BA327C538FE00750B0E /* Bool.swift */,
+				B2454BA527C569DC00750B0E /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				B25CA9F4278B50E100170C2D /* Proteins */,
+				B2454BA327C538FE00750B0E /* Bool.swift */,
 				B25CAA05278B50E200170C2D /* ProteinsTests */,
 				B25CAA0F278B50E200170C2D /* ProteinsUITests */,
 				B25CA9F3278B50E100170C2D /* Products */,
@@ -403,6 +406,7 @@
 				B2148E4C27B478C900ACFDAE /* LigandView.swift in Sources */,
 				B25CA9F6278B50E100170C2D /* ProteinsApp.swift in Sources */,
 				B271D5BC27BEDFBD00D6EF6D /* AtomInfo.swift in Sources */,
+				B2454BA627C569DC00750B0E /* Array.swift in Sources */,
 				B2F9AB3727BBECBC006E82EA /* PdbClient.swift in Sources */,
 				B2454BA427C538FE00750B0E /* Bool.swift in Sources */,
 			);

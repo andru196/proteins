@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PDBAtom {
+struct PDBAtom: Equatable {
     let name: String
     let element: String
     let number: Int

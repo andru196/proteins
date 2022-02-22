@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PDBConnect {
+struct PDBConnect: Equatable {
     let first: Int
     let second: Int
     var isDouble = false

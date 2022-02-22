@@ -188,7 +188,9 @@ struct LigandView: BaseView {
     func loadData(ligand: Ligand) {
         self.ligandBox.value = ligand
         let pdbDoc = client.gePdb(name: ligandBox.value.name)
-        self.ligandBox.value.pdbDoc = checkValence(doc: Box(value: pdbDoc))
+        let box = Box(value: pdbDoc)
+        recursiveCheck(doc: box)
+        self.ligandBox.value.pdbDoc = box.value!
         scnViewBox.value = ScenekitView(scenekitClass: ScenekitClass(scene:  generate(scene: SCNScene()),
                                                                      isSelectedElement: $showInfo,
                                                                      selectedElement: $selectedElement))
@@ -207,13 +209,57 @@ struct LigandView: BaseView {
             return 1
         } else if info.symbol == "O" || info.catigory == "alkaline earth metal" {
             return 2
-        } else if ["AL", "B"].contains(info.symbol) {
+        } else if ["AL", "B", "N"].contains(info.symbol) {
             return 3
         } else if (info.symbol == "C") {
             return 4
         }
         return 1
     }
+    
+    func recursiveCheck(doc: Box<PdbDocument>, fromAtomNumber: Int? = nil, checkingAtomNumber: Int? = nil, visited: Box<[Int]>? = nil) -> Bool {
+        if checkingAtomNumber == nil {
+            for a in 0..<doc.value.atoms.count {
+                let _ = recursiveCheck(doc: doc, checkingAtomNumber: a, visited: Box(value: [Int]()))
+            }
+            return true
+        } else {
+            let atomN = checkingAtomNumber!
+            let atom = doc.value.atoms[atomN]
+            let valence = getValence(el: atom.element)
+            let connections = doc.value.connections.all{ x in x.second == atomN || x.first == atomN}
+            if connections.count == valence {
+                return true
+            } else {
+                var v = 0
+                for c in connections {
+                    v += c.isDouble ? 2 : 1
+                }
+                if v >= valence {
+                    return true
+                }
+            }
+            let atoms = connections.map{x in x.first == atomN ? doc.value.atoms[x.second] : doc.value.atoms[x.first]}
+            let fromAtom = doc.value.atoms[fromAtomNumber ?? atomN]
+            var falses = 0
+            visited?.value.append(checkingAtomNumber!)
+            for atom in atoms {
+                if atom.number != fromAtom.number && !visited!.value!.contains(atom.number) {
+                    if !recursiveCheck(doc: doc, fromAtomNumber: checkingAtomNumber, checkingAtomNumber: atom.number, visited: visited) {
+                        falses += 1
+                    }
+                }
+            }
+            if falses == 0 {
+                let index = doc.value.connections.firstIndex {x in (x.first == fromAtomNumber && x.second == checkingAtomNumber)
+                                                || (x.second == fromAtomNumber && x.first == checkingAtomNumber)}
+                doc.value.connections[index!].isDouble = true
+            }
+            let _ = visited?.value.removeLast()
+            return false
+        }
+    }
+    
     func checkValence(doc: Box<PdbDocument>) -> PdbDocument {
         for i in  0..<doc.value.connections.count {
             let conn = doc.value.connections[i]
@@ -221,6 +267,7 @@ struct LigandView: BaseView {
             let atom2 = doc.value.atoms[conn.second]
             let v1 = getValence(el: atom1.element)
             let v2 = getValence(el: atom2.element)
+            
             if v1 == 1 || v2 == 1 {
                 continue
             }
@@ -238,7 +285,7 @@ struct LigandView: BaseView {
                 }
             }
             
-            if countV1 != countV2 {
+            if countV1 + 1 < v1 && countV2 + 1 < v2 {
                 doc.value.connections[i].isDouble = true
             }
         }
