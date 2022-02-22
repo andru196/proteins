@@ -7,27 +7,16 @@
 
 import Foundation
 
-struct PdbDocument {
-    let atoms: [PDBAtom]
-    let connections: [PDBConnect]
-}
-
-struct PDBAtom {
-    let name: String
-    let element: String
-    let number: Int
-    let x: Double
-    let y: Double
-    let z: Double
-}
-
-struct PDBConnect {
-    let first: Int
-    let second: Int
-    var isDouble = false
-}
-
 class PDBReader {
+    private func lineToAtom(elements: [Substring.SubSequence]) -> PDBAtom {
+        return PDBAtom(name: String(elements[2]),
+                       element: String(elements[11]),
+                       number: Int(String(elements[1]))! - 1,
+                       x: Double(String(elements[6]))!,
+                       y: Double(String(elements[7]))!,
+                       z: Double(String(elements[8]))!)
+    }
+    
     func read(text: String) -> PdbDocument {
         var atoms = [PDBAtom]()
         var connections = [PDBConnect]()
@@ -38,17 +27,12 @@ class PDBReader {
             let type = LineType(rawValue: String(elements[0]))
             switch type {
             case .ATOM:
-                let atom = PDBAtom(name: String(elements[2]),
-                                element: String(elements[11]),
-                                number: Int(String(elements[1]))! - 1,
-                                x: Double(String(elements[6]))!,
-                                y: Double(String(elements[7]))!,
-                                z: Double(String(elements[8]))!)
+                let atom = lineToAtom(elements: elements)
                 atoms.append(atom)
             case .CONECT:
                 let target = Int(String(elements[1]))! - 1
                 for element in elements[2...] {
-                    var conn = PDBConnect(first: target,
+                    let conn = PDBConnect(first: target,
                                        second: Int(String(element))! - 1)
                     var j = -1
                     if let _ = connections.first(where: { x in
@@ -59,7 +43,7 @@ class PDBReader {
                     })
                     {
                         connections.remove(at: j)
-                        conn.isDouble = true
+                        //conn.isDouble = true
                     }
                     connections.append(conn)
                 }
@@ -67,24 +51,9 @@ class PDBReader {
                 break
             default:
                 print("fck: \(line)")
-                //                        exit(1)
             }
         }
         return PdbDocument(atoms: atoms.sorted(by: {$0.number < $1.number}), connections: connections)
     }
-}
-
-enum LineType: String {
-    case HEADER = "HEADER"
-    case TITLE = "TITLE"
-    case EXPDTA = "EXPDTA"
-    case AUTHOR = "AUTHOR"
-    case REMARK = "REMARK"
-    case SEQRES = "SEQRES"
-    case ATOM = "ATOM"
-    case HETATM = "HETATM"
-    case CONECT = "CONECT"
-    case END = "END"
-    
 }
 

@@ -34,4 +34,6 @@ struct AtomInfo {
     let electronegativityPauling: Float?
     let ionizationEnergies: [Float]
     let cpkHex: String?
+    
+    
 }

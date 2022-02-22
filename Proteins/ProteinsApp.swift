@@ -20,7 +20,7 @@ struct ProteinsApp: App {
     func prepareView() -> LoginView{
         var lview = LoginView()
         let box = Box(value: lview)
-        let lst = ContentView(ligands: Ligands(names: readLigandsList()), atoms: readAtomInfos(), logView: box, loginState: lview.model)
+        let lst = LigandsListView(ligands: Ligands(names: readLigandsList()), atoms: readAtomInfos(), logView: box, loginState: lview.model)
         lview.lock(nextView: lst)
         return lview
     }
@@ -43,7 +43,6 @@ struct ProteinsApp: App {
                     String($0)
                 })
             } catch _ {
-                //TODO: some error msg
                 exit(1)
             }
         }
@@ -75,7 +74,7 @@ struct ProteinsApp: App {
                                                     source: atom["source"] as! String,
                                                     spectralImage: atom["spectral_img"] as? String,
                                                     summary: atom["summary"] as! String,
-                                                    symbol: atom["symbol"] as! String,
+                                                    symbol: (atom["symbol"] as! String).uppercased(),
                                                     xpos: (atom["xpos"] as! NSNumber).intValue,
                                                     ypos: (atom["ypos"] as! NSNumber).intValue,
                                                     shells: atom["shells"] as! [Int],
