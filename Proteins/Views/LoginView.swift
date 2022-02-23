@@ -19,16 +19,18 @@ struct LoginView: View {
     var body: some View {
         ZStack {
             if model.lock {
-                Button(action: {
-                    if model.lock {
-                        authenticate()
+                 
+                    Button(action: {
+                        if model.lock {
+                            authenticate()
+                        }
+                    }) {
+                        Image(systemName: canUseBiometric ? "touchid" : "lock")
+                            .foregroundColor(.red)
+                            .font(.largeTitle)
+                            .padding(40)
                     }
-                }) {
-                    Image(systemName: "touchid")
-                        .foregroundColor(.red)
-                        .font(.largeTitle)
-                        .padding(40)
-                }
+                
             } else {
                 if let view = viewList {
                     view
@@ -44,9 +46,9 @@ struct LoginView: View {
             print(phase)
         }
         .alert(isPresented: $showingALert) {
-                            Alert(title: Text("NO"),
-                                   message: Text("U can't see content without authentication"),
-                                   dismissButton: .default(Text("OK")))
+            Alert(title: Text("NO"),
+                  message: Text("U can't see content without authentication"),
+                  dismissButton: .default(Text("OK")))
         }
     }
     
@@ -63,8 +65,20 @@ struct LoginView: View {
         print("app locked")
     }
     
+    let canUseBiometric: Bool
     init() {
         self.model = Model()
+        let localAuthenticationContext = LAContext()
+        localAuthenticationContext.localizedFallbackTitle = "Please use your Passcode"
+        var authorizationError: NSError?
+
+        if localAuthenticationContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authorizationError) {
+
+            print("Biometrics is supported. User can use Passcode option if needed.")
+            canUseBiometric = true
+        } else {
+            canUseBiometric = false
+        }
     }
     
     func authenticate() {
@@ -72,11 +86,11 @@ struct LoginView: View {
         var error: NSError?
         
         // check whether biometric authentication is possible
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
             // it's possible, so go ahead and use it
             let reason = "We need to unlock your data."
             
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
                 // authentication has now completed
                 if success {
                     model.lock = false
