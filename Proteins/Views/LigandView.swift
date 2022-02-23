@@ -49,7 +49,7 @@ struct LigandView: BaseView {
     
     func updateSelectionBind() -> ScenekitView {
         if scnViewBox.value != nil {
-            scnViewBox.value.updateSelectionBind(isSelectedElement: $showInfo, selectedElement: $selectedElement)
+            scnViewBox.value.updateSelectionBind(isSelectedElement: $showInfo)
         }
         return scnViewBox.value
     }
@@ -69,64 +69,15 @@ struct LigandView: BaseView {
                 if showInfo {
                     if let node = scnViewBox.value.scenekitClass.selectedElement?.scnNode {
                         if let atom = allAtoms.value[node], let atomInfo = atomInfos[atom.element.uppercased()] {
-                            VStack
-                            {
-                                Text(atomInfo.name)
-                                    .font(.largeTitle)
-                                HStack{
-                                    Text(atom.element).fontWeight(.bold)
-                                    Text(atom.name)
-                                    Link("Wikipedia", destination: URL(string: atomInfo.source)!)
-                                        .padding(.leading, 10)
-                                }
-                                
-                                if let dic: KeyValuePairs<String, String> =
-                                    ["Summary": atomInfo.summary,
-                                     "Appearance": atomInfo.appearance ?? "NULL",
-                                     "Atomic Mass": String(atomInfo.atomicMass) ,
-                                     "Boil": String(atomInfo.boil ?? -1) ,
-                                     "Category": atomInfo.catigory ?? "NULL",
-                                     "Density": String(atomInfo.density ?? -1),
-                                     "Discover By": atomInfo.discoverVy ?? "NULL",
-                                     "Melt": String(atomInfo.melt ?? -1) ,
-                                     "Molar Heat": String(atomInfo.molarHeat ?? -1) ,
-                                     "Named By": atomInfo.namedBy ?? "NULL",
-                                     "Number": String(atomInfo.number) ,
-                                     "Period": String(atomInfo.period) ,
-                                     "Phase": atomInfo.phase ,
-                                     "X Posistion": String(atomInfo.xpos) ,
-                                     "Y Position": String(atomInfo.ypos) ,
-                                     "Shells": " ".join(elements: atomInfo.shells.map{String($0)}),
-                                     "Electron Configuration": atomInfo.electronConfiguration ,
-                                     "Electron Configuration Semantic": atomInfo.electronConfigurationSemantic ,
-                                     "Electron Affinity": String(atomInfo.electronAffinity ?? -1) ,
-                                     "Electronegativity Pauling": String(atomInfo.electronegativityPauling ?? -1) ,
-                                     "Ionization Energies": " ".join(elements: atomInfo.ionizationEnergies.map{String($0)}),
-                                     "CPK Hex": atomInfo.cpkHex ?? "NULL"
-                                    ] {
-                                    List {
-                                        ForEach (dic, id: \.key) { kv in
-                                            Section(header:Text(kv.key)){
-                                                Text(kv.value)
-                                                    .onTapGesture(count: 2) {
-                                                        UIPasteboard.general.string = kv.value
-                                                    }
-                                            }
-                                            .listRowBackground(Color.clear)
-                                            
-                                        }
-                                    }.listStyle(GroupedListStyle())
-                                        .background(Color.clear)
-                                }
-                                
-                            }
+                            AtomInfoView(atomInfo: atomInfo, atom: atom)
                             .padding(10)
                             .frame(width: UIScreen.main.bounds.size.width,
                                    height: UIScreen.main.bounds.height / 2,
                                    alignment: .top)
                             .zIndex(3)
                             .background(Color(UIColor.gray.withAlphaComponent(0.7)))
-                            .addBorder(Color.black, width: 1, cornerRadius: 20)
+                            .cornerRadius(20, corners: .topLeft)
+                            .cornerRadius(20, corners: .topRight)
                         }
                     }
                 }
@@ -189,19 +140,13 @@ struct LigandView: BaseView {
         self.ligandBox.value = ligand
         let pdbDoc = client.gePdb(name: ligandBox.value.name)
         let box = Box(value: pdbDoc)
-        recursiveCheck(doc: box)
+        let _ = recursiveCheck(doc: box)
         self.ligandBox.value.pdbDoc = box.value!
         scnViewBox.value = ScenekitView(scenekitClass: ScenekitClass(scene:  generate(scene: SCNScene()),
-                                                                     isSelectedElement: $showInfo,
-                                                                     selectedElement: $selectedElement))
+                                                                     isSelectedElement: _showInfo.projectedValue))
         print("\(id) updated")
     }
     
-    /*
-     одновалентны водород, галогены, щелочные металлы (alkali metal) К галогенам относятся фтор F, хлор Cl, бром Br, иод I, астат At, а также (формально) искусственный элемент теннессин Ts
-     двухвалентны кислород, щелочноземельные металлы. alkaline earth metal
-     трехвалентны алюминий (Al) и бор (B).
-     */
     func getValence(el: String) -> Int {
         let info = atomInfos[el.uppercased()]!
         if ["H", "F", "CL", "BR", "I", "AT", "TS"].contains(info.symbol)
@@ -435,7 +380,8 @@ struct LigandView: BaseView {
         items: [Any],
         excludedActivityTypes: [UIActivity.ActivityType]? = nil
     ) -> Bool {
-        guard let source = UIApplication.shared.windows.last?.rootViewController else {
+        
+        guard let source = UIApplication.shared.currentUIWindow()?.rootViewController else {
             return false
         }
         let vc = UIActivityViewController(

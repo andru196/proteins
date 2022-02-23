@@ -23,6 +23,9 @@
 		B2454BA027C5197800750B0E /* PdbDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454B9F27C5197800750B0E /* PdbDocument.swift */; };
 		B2454BA427C538FE00750B0E /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454BA327C538FE00750B0E /* Bool.swift */; };
 		B2454BA627C569DC00750B0E /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454BA527C569DC00750B0E /* Array.swift */; };
+		B2454BA827C6840F00750B0E /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454BA727C6840E00750B0E /* UIApplication.swift */; };
+		B2454BAA27C6867000750B0E /* AtomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454BA927C6867000750B0E /* AtomInfoView.swift */; };
+		B2454BAD27C68A9200750B0E /* LigandViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2454BAC27C68A9200750B0E /* LigandViewViewModel.swift */; };
 		B25CA9F6278B50E100170C2D /* ProteinsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CA9F5278B50E100170C2D /* ProteinsApp.swift */; };
 		B25CA9F8278B50E100170C2D /* LigandsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CA9F7278B50E100170C2D /* LigandsListView.swift */; };
 		B25CA9FA278B50E200170C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B25CA9F9278B50E200170C2D /* Assets.xcassets */; };
@@ -75,6 +78,9 @@
 		B2454B9F27C5197800750B0E /* PdbDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdbDocument.swift; sourceTree = "<group>"; };
 		B2454BA327C538FE00750B0E /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		B2454BA527C569DC00750B0E /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		B2454BA727C6840E00750B0E /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		B2454BA927C6867000750B0E /* AtomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomInfoView.swift; sourceTree = "<group>"; };
+		B2454BAC27C68A9200750B0E /* LigandViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandViewViewModel.swift; sourceTree = "<group>"; };
 		B25CA9F2278B50E100170C2D /* Proteins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proteins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B25CA9F5278B50E100170C2D /* ProteinsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsApp.swift; sourceTree = "<group>"; };
 		B25CA9F7278B50E100170C2D /* LigandsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandsListView.swift; sourceTree = "<group>"; };
@@ -142,6 +148,7 @@
 				B2454B9327C5171600750B0E /* SCNNode.swift */,
 				B2454B9727C518B100750B0E /* VIew.swift */,
 				B2454BA527C569DC00750B0E /* Array.swift */,
+				B2454BA727C6840E00750B0E /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -152,6 +159,8 @@
 				B25CA9F7278B50E100170C2D /* LigandsListView.swift */,
 				B271D5BE27BFEA8E00D6EF6D /* LoginView.swift */,
 				B2148E4B27B478C900ACFDAE /* LigandView.swift */,
+				B2454BA927C6867000750B0E /* AtomInfoView.swift */,
+				B271D5B727BD821300D6EF6D /* ScenekitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -174,6 +183,14 @@
 				B271D5C027BFEB3500D6EF6D /* BaseView.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B2454BAB27C68A6400750B0E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B2454BAC27C68A9200750B0E /* LigandViewViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		B25CA9E9278B50E100170C2D = {
@@ -200,6 +217,7 @@
 		B25CA9F4278B50E100170C2D /* Proteins */ = {
 			isa = PBXGroup;
 			children = (
+				B2454BAB27C68A6400750B0E /* ViewModels */,
 				B2454BA227C51AFE00750B0E /* Models */,
 				B2454BA127C51ADF00750B0E /* Utils */,
 				B2454B9027C441C900750B0E /* Views */,
@@ -214,7 +232,6 @@
 				B25CA9FB278B50E200170C2D /* Preview Content */,
 				B271D5B927BEDEB600D6EF6D /* PeriodicTable.json */,
 				B2F9AB3627BBECBC006E82EA /* PdbClient.swift */,
-				B271D5B727BD821300D6EF6D /* ScenekitView.swift */,
 			);
 			path = Proteins;
 			sourceTree = "<group>";
@@ -388,6 +405,8 @@
 				B2454B8E27C2F19400750B0E /* String.swift in Sources */,
 				B2454B9627C5189100750B0E /* HasApply.swift in Sources */,
 				B271D5B827BD821300D6EF6D /* ScenekitView.swift in Sources */,
+				B2454BA827C6840F00750B0E /* UIApplication.swift in Sources */,
+				B2454BAD27C68A9200750B0E /* LigandViewViewModel.swift in Sources */,
 				B2454BA027C5197800750B0E /* PdbDocument.swift in Sources */,
 				B271D5C527BFFFD600D6EF6D /* Box.swift in Sources */,
 				B271D5C127BFEB3500D6EF6D /* BaseView.swift in Sources */,
@@ -397,6 +416,7 @@
 				B2454B9227C516AA00750B0E /* SCNVector3.swift in Sources */,
 				B2454B9E27C5196400750B0E /* PDBAtom.swift in Sources */,
 				B2F9AB3A27BBEE0C006E82EA /* Configurator.swift in Sources */,
+				B2454BAA27C6867000750B0E /* AtomInfoView.swift in Sources */,
 				B2F9AB3527BBEB66006E82EA /* Files.swift in Sources */,
 				B2454B9427C5171600750B0E /* SCNNode.swift in Sources */,
 				B2148E4A27B46D0100ACFDAE /* Ligand.swift in Sources */,

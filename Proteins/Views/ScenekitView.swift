@@ -5,7 +5,6 @@
 //  Created by Andrew Tarasow on 16.02.2022.
 //
 
-import Foundation
 import SwiftUI
 import SceneKit
 
@@ -20,12 +19,10 @@ struct ScenekitView : UIViewRepresentable {
 
     func updateUIView(_ scnView: SCNView, context: Context) {
         print("View Updeted")
-        //scnView.addGestureRecognizer(ScenekitClass.makeRecigizer(scenekitClass))
-        // your update UI view contents look like they can all be done in the initial creation
     }
     
-    func updateSelectionBind(isSelectedElement: Binding<Bool>, selectedElement: Binding<Node?>) {
-        scenekitClass.updateSelectionBind(isSelectedElement: isSelectedElement, selectedElement: selectedElement)
+    func updateSelectionBind(isSelectedElement: Binding<Bool>) {
+        scenekitClass.updateSelectionBind(isSelectedElement: isSelectedElement)
     }
 }
 
@@ -38,17 +35,19 @@ class ScenekitClass {
         }
     }
     
-    @Binding var selectedElement: Node? {
+    var selectedElement: Node? {
         didSet {
-            print(selectedElement)
+            if let se = selectedElement {
+                print("Selected \(se)")
+            } else {
+                print("Selected empty")
+            }
         }
     }
     
-    init(scene: SCNScene, isSelectedElement: Binding<Bool>? = nil,
-         selectedElement: Binding<Node?>? = nil) {
+    init(scene: SCNScene, isSelectedElement: Binding<Bool>? = nil) {
         self.scene = scene
         self._isElementSelected = isSelectedElement!
-        self._selectedElement = selectedElement!
         
         // create and add a camera to the scene
         let cameraNode = SCNNode()
@@ -67,9 +66,8 @@ class ScenekitClass {
         view.addGestureRecognizer(tg)
     }
     
-    func updateSelectionBind(isSelectedElement: Binding<Bool>, selectedElement: Binding<Node?>) {
+    func updateSelectionBind(isSelectedElement: Binding<Bool>) {
         self._isElementSelected = isSelectedElement
-        self._selectedElement = selectedElement
     }
     
     static func makeRecigizer(_ element: ScenekitClass) -> UITapGestureRecognizer {
@@ -77,27 +75,19 @@ class ScenekitClass {
     }
     
     @objc func handleTap(_ gestureRecognize: UIGestureRecognizer) {
-        // check what nodes are tapped
         let p = gestureRecognize.location(in: view)
         let hitResults = view.hitTest(p, options: [:])
-        // check that we clicked on at least one object
-        
+        self.isElementSelected = false
         if hitResults.count > 0 {
             self.isElementSelected = true
-            // retrieved the first clicked object
             let result = hitResults[0]
 
-            print(result.node.name)
             self.selectedElement = Node(scnNode: result.node)
-            self._selectedElement.update()
-            // get material for selected geometry element
             let material = result.node.geometry!.firstMaterial
             
-            // highlight it
             SCNTransaction.begin()
             SCNTransaction.animationDuration = 0.5
 
-            // on completion - unhighlight
             SCNTransaction.completionBlock = {
                 SCNTransaction.begin()
                 SCNTransaction.animationDuration = 0.5
@@ -109,7 +99,6 @@ class ScenekitClass {
             
         }
         else {
-            self.isElementSelected = false
             self.selectedElement = nil
         }
     }

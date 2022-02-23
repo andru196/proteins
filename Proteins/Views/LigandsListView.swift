@@ -44,7 +44,8 @@ struct LigandsListView: BaseView {
                     .zIndex(3)
                     .padding(15)
                     .background(Color(UIColor.lightGray.withAlphaComponent(0.3)))
-                    .cornerRadius(20)
+                    .cornerRadius(20, corners: .bottomRight)
+                    .cornerRadius(20, corners: .topLeft)
                     .onAppear {
                         if isLoading && selectedLigand != nil {
                             DispatchQueue.main.async {
