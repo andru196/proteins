@@ -270,38 +270,6 @@ struct LigandView: BaseView {
         }
     }
     
-    func checkValence(doc: Box<PdbDocument>) -> PdbDocument {
-        for i in  0..<doc.value.connections.count {
-            let conn = doc.value.connections[i]
-            let atom1 = doc.value.atoms[conn.first]
-            let atom2 = doc.value.atoms[conn.second]
-            let v1 = getValence(el: atom1.element)
-            let v2 = getValence(el: atom2.element)
-            
-            if v1 == 1 || v2 == 1 {
-                continue
-            }
-            
-            var countV1 = 0
-            var countV2 = 0
-            
-            for connection in  doc.value.connections {
-                if ((conn.first == connection.first) && (conn.second != connection.second)) ||
-                    ((conn.first == connection.second) && (conn.second != connection.first)) {
-                    countV1 += connection.isDouble ? 2 : 1
-                } else if ((conn.second == connection.second) && (conn.first != connection.first)) ||
-                            ((conn.second == connection.first) && (conn.first != connection.second)) {
-                    countV2 += connection.isDouble ? 2 : 1
-                }
-            }
-            
-            if countV1 + 1 < v1 && countV2 + 1 < v2 {
-                doc.value.connections[i].isDouble = true
-            }
-        }
-        return doc.value
-    }
-    
     func generate(scene: SCNScene) -> SCNScene {
         let center = SCNNode()
         center.position = SCNVector3(x: 0, y: 0, z: 0)
@@ -354,8 +322,32 @@ struct LigandView: BaseView {
                      "N": UIColor.blue,
                      "H": UIColor.white,
                      "S": UIColor.yellow,
-                     "P": UIColor.purple,
-                     "XXX": UIColor.magenta] {
+                     "BR": UIColor.brown,
+                     "I": UIColor.purple,
+                     "HE": UIColor.cyan,
+                     "NE": UIColor.cyan,
+                     "AR": UIColor.cyan,
+                     "KR": UIColor.cyan,
+                     "XE": UIColor.cyan,
+                     "B": UIColor.orange,
+                     "P": UIColor.orange,
+                     "LI": UIColor.purple,
+                     "NA": UIColor.purple,
+                     "K": UIColor.purple,
+                     "RB": UIColor.purple,
+                     "CS": UIColor.purple,
+                     "FR": UIColor.purple,
+                     "F": UIColor.green,
+                     "CI": UIColor.green,
+                     "BE": UIColor.green,
+                     "MG": UIColor.green,
+                     "CA": UIColor.green,
+                     "SR": UIColor.green,
+                     "BA": UIColor.green,
+                     "RA": UIColor.green,
+                     "TI": UIColor.gray,
+                     "FE": UIColor.orange,
+                     "XXX": UIColor.systemPink] {
             spheres[name.key] = SCNSphere(radius: 0.35)
             let material = SCNMaterial()
             material.diffuse.contents = name.value.withAlphaComponent(0.85)

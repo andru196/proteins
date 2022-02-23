@@ -34,6 +34,11 @@ extension View {
                     .foregroundColor(color3).blur(radius: 12).brightness(0.35)
                 
             }
-         }
-
+    }
+    
+    func hasScrollEnabled(_ value: Bool) -> some View {
+        self.onAppear {
+            UITableView.appearance().isScrollEnabled = value
+        }
+    }
 }

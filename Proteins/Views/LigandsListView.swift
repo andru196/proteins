@@ -21,15 +21,38 @@ struct LigandsListView: BaseView {
     @State private var scale: CGFloat = 0.1
     @State private var showingDetail = false
     @State private var ligandView: LigandView!
-    @State private var isLoading = false
+    @State private var isLoading = false {
+        didSet {
+            if isLoading == false && oldValue {
+                self.showingDetail = true
+                
+            }
+        }
+    }
+    @State private var selectedLigand: Ligand!
     private let atomInfos: [String: AtomInfo]
     private let lv: LigandView
     var body: some View {
         NavigationView {
             ZStack {
                 if isLoading {
-                    ProgressView()
-                        .zIndex(3)
+                    VStack {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                        Text("Loading...")
+                    }
+                    .zIndex(3)
+                    .padding(15)
+                    .background(Color(UIColor.lightGray.withAlphaComponent(0.3)))
+                    .cornerRadius(20)
+                    .onAppear {
+                        if isLoading && selectedLigand != nil {
+                            DispatchQueue.main.async {
+                                lv.loadData(ligand: selectedLigand)
+                                isLoading = false
+                            }
+                        }
+                    }
                 }
                 VStack {
                     NavigationLink(isActive: $showingDetail, destination: {lv})
@@ -46,11 +69,7 @@ struct LigandsListView: BaseView {
                                 .padding(5)
                                 .onTapGesture{
                                     self.isLoading = true
-                                    lv.loadData(ligand: ligand)
-                                    self.showingDetail = true
-                                    self.isLoading = false
-                                }
-                                .onAppear {
+                                    selectedLigand = ligand
                                 }
                         }
                         .navigationTitle("Select Ligand")
@@ -62,10 +81,12 @@ struct LigandsListView: BaseView {
                             }
                         }
                     }
-                    .background(Color.init(uiColor: UIColor.gray.withAlphaComponent(0.25)))
                 }
                 .zIndex(1)
+                .blur(radius: isLoading ? 10 : 0)
+                .hasScrollEnabled(!isLoading)
             }
+            
         }
         .onChange(of: _scenePhase) { phase in
             if phase == .background {
