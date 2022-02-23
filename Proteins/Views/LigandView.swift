@@ -198,9 +198,9 @@ struct LigandView: BaseView {
     }
     
     /*
-         одновалентны водород, галогены, щелочные металлы (alkali metal) К галогенам относятся фтор F, хлор Cl, бром Br, иод I, астат At, а также (формально) искусственный элемент теннессин Ts
-         двухвалентны кислород, щелочноземельные металлы. alkaline earth metal
-         трехвалентны алюминий (Al) и бор (B).
+     одновалентны водород, галогены, щелочные металлы (alkali metal) К галогенам относятся фтор F, хлор Cl, бром Br, иод I, астат At, а также (формально) искусственный элемент теннессин Ts
+     двухвалентны кислород, щелочноземельные металлы. alkaline earth metal
+     трехвалентны алюминий (Al) и бор (B).
      */
     func getValence(el: String) -> Int {
         let info = atomInfos[el.uppercased()]!
@@ -251,9 +251,19 @@ struct LigandView: BaseView {
                 }
             }
             if falses == 0 {
-                let index = doc.value.connections.firstIndex {x in (x.first == fromAtomNumber && x.second == checkingAtomNumber)
-                                                || (x.second == fromAtomNumber && x.first == checkingAtomNumber)}
-                doc.value.connections[index!].isDouble = true
+                if fromAtomNumber != nil {
+                    let index = doc.value.connections.firstIndex {x in (x.first == fromAtomNumber && x.second == checkingAtomNumber)
+                        || (x.second == fromAtomNumber && x.first == checkingAtomNumber)}
+                    doc.value.connections[index!].isDouble = true
+                } else {
+                    print("wtf?: \(checkingAtomNumber!)")
+                    if connections.count == 1 {
+                        let conn = connections.first
+                        let index = doc.value.connections.firstIndex {x in conn?.first == x.first && conn?.second == x.second}
+                        doc.value.connections[index!].isDouble = true
+                    }
+                }
+                
             }
             let _ = visited?.value.removeLast()
             return false
