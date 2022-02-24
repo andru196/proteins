@@ -20,34 +20,17 @@ struct ScenekitView : UIViewRepresentable {
     func updateUIView(_ scnView: SCNView, context: Context) {
         print("View Updeted")
     }
-    
-    func updateSelectionBind(isSelectedElement: Binding<Bool>) {
-        scenekitClass.updateSelectionBind(isSelectedElement: isSelectedElement)
-    }
 }
 
 class ScenekitClass {
     let view = SCNView()
     let scene: SCNScene
-    @Binding var isElementSelected: Bool {
-        didSet {
-            print(oldValue, isElementSelected)
-        }
-    }
     
-    var selectedElement: Node? {
-        didSet {
-            if let se = selectedElement {
-                print("Selected \(se)")
-            } else {
-                print("Selected empty")
-            }
-        }
-    }
+    @ObservedObject var viewModel : LigandViewViewMode
     
-    init(scene: SCNScene, isSelectedElement: Binding<Bool>? = nil) {
+    init(scene: SCNScene, viewModel: LigandViewViewMode) {
         self.scene = scene
-        self._isElementSelected = isSelectedElement!
+        self.viewModel = viewModel
         
         // create and add a camera to the scene
         let cameraNode = SCNNode()
@@ -66,10 +49,6 @@ class ScenekitClass {
         view.addGestureRecognizer(tg)
     }
     
-    func updateSelectionBind(isSelectedElement: Binding<Bool>) {
-        self._isElementSelected = isSelectedElement
-    }
-    
     static func makeRecigizer(_ element: ScenekitClass) -> UITapGestureRecognizer {
         return UITapGestureRecognizer(target: element, action: #selector(handleTap(_:)))
     }
@@ -77,12 +56,12 @@ class ScenekitClass {
     @objc func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         let p = gestureRecognize.location(in: view)
         let hitResults = view.hitTest(p, options: [:])
-        self.isElementSelected = false
+        self.viewModel.unselected()
         if hitResults.count > 0 {
-            self.isElementSelected = true
+            
             let result = hitResults[0]
 
-            self.selectedElement = Node(scnNode: result.node)
+            self.viewModel.selected(selectedElement: result.node)
             let material = result.node.geometry!.firstMaterial
             
             SCNTransaction.begin()
@@ -99,7 +78,7 @@ class ScenekitClass {
             
         }
         else {
-            self.selectedElement = nil
+            self.viewModel.unselected()
         }
     }
 }
@@ -107,12 +86,3 @@ class ScenekitClass {
 struct Node {
     let scnNode: SCNNode
 }
-
-#if DEBUG
-struct ScenekitView_Previews : PreviewProvider {
-    @State var stt: Bool = false
-    static var previews: some View {
-        ScenekitView(scenekitClass: ScenekitClass(scene: SCNScene()))
-    }
-}
-#endif

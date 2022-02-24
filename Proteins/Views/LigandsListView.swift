@@ -8,34 +8,21 @@
 import SwiftUI
 
 struct LigandsListView: BaseView {
-    var loginableModel: Model
-    
     var loginView: Box<LoginView>
-    
+    private var lv: LigandView = Configurator.getLigandView()
     
     @Environment(\.scenePhase) var _scenePhase
+    @ObservedObject var viewModel: Ligands
     
-    
-    @ObservedObject var ligands: Ligands
-    @State var searchText: String = ""
+
     @State private var scale: CGFloat = 0.1
-    @State private var showingDetail = false
     @State private var ligandView: LigandView!
-    @State private var isLoading = false {
-        didSet {
-            if isLoading == false && oldValue {
-                self.showingDetail = true
-                
-            }
-        }
-    }
-    @State private var selectedLigand: Ligand!
-    private let atomInfos: [String: AtomInfo]
-    private let lv: LigandView
+
+    
     var body: some View {
         NavigationView {
             ZStack {
-                if isLoading {
+                if viewModel.isLoading {
                     VStack {
                         ProgressView()
                             .progressViewStyle(.circular)
@@ -47,34 +34,30 @@ struct LigandsListView: BaseView {
                     .cornerRadius(20, corners: .bottomRight)
                     .cornerRadius(20, corners: .topLeft)
                     .onAppear {
-                        if isLoading && selectedLigand != nil {
-                            DispatchQueue.main.async {
-                                lv.loadData(ligand: selectedLigand)
-                                isLoading = false
-                            }
-                        }
+                        viewModel.onAppearLoading(loader: lv.viewModel.loadData)
                     }
                 }
                 VStack {
-                    NavigationLink(isActive: $showingDetail, destination: {lv})
+                    NavigationLink(isActive: $viewModel.showingDetail, destination: {lv})
                     {
                         EmptyView()
                     }
-                    TextField("Search...", text: $searchText)
+                    TextField("Search...", text: $viewModel.searchText)
                         .padding()
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     List {
-                        ForEach(ligands.items.filter{searchText.isEmpty || $0.name.contains(searchText)}, id: \.id) { ligand in
-                            Text(ligand.name)
+                        ForEach(viewModel.items.filter{viewModel.searchText.isEmpty || $0.name.contains(viewModel.searchText)}, id: \.id) { ligand in
+                            HStack {
+                                Text(ligand.name)
                                 .font(.headline)
+                            }
                                 .padding(5)
                                 .onTapGesture{
-                                    self.isLoading = true
-                                    selectedLigand = ligand
+                                    viewModel.isLoading = true
+                                    self.viewModel.selectLigand(ligand)
                                 }
                         }
                         .navigationTitle("Select Ligand")
-                        
                         .scaleEffect(scale)
                         .onAppear{
                             withAnimation(Animation.easeOut(duration: 0.8)) {
@@ -84,23 +67,24 @@ struct LigandsListView: BaseView {
                     }
                 }
                 .zIndex(1)
-                .blur(radius: isLoading ? 10 : 0)
-                .hasScrollEnabled(!isLoading)
+                .blur(radius: viewModel.isLoading ? 10 : 0)
+                .hasScrollEnabled(!viewModel.isLoading)
             }
-            
+            .alert(isPresented: $viewModel.loadedUnsuccess) {
+                Alert(title: Text("Error"),
+                      message: Text("Can't load data"),
+                      dismissButton: .default(Text("OK")))
+            }
         }
         .onChange(of: _scenePhase) { phase in
-            if phase == .background {
+            if phase == .background || phase == .inactive {
                 lock()
             }
         }
     }
     
-    init(ligands: Ligands, atoms: [String: AtomInfo], logView: Box<LoginView>, loginState: Model) {
-        self.ligands = ligands
-        self.atomInfos = atoms
+    init(ligands: Ligands, logView: Box<LoginView>) {
+        self.viewModel = ligands
         self.loginView = logView
-        self.loginableModel = loginState
-        self.lv = LigandView(atomInfos: atomInfos, logBox: loginView, loginState: loginableModel)
     }
 }

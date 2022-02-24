@@ -9,7 +9,6 @@ import Foundation
 
 class PdbClient {
     
-    
     let pdbReader: PDBReader
     init(pdbReader: PDBReader) {
         self.pdbReader = pdbReader
@@ -30,9 +29,11 @@ class PdbClient {
         let semaphore = DispatchSemaphore(value: 0)
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             guard error == nil else {
+                semaphore.signal()
                 return
             }
             guard let data = data else {
+                semaphore.signal()
                 return
             }
             text = String(data: data, encoding: .utf8)!
