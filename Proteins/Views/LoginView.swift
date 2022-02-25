@@ -15,9 +15,12 @@ struct LoginView: View {
     @Environment(\.scenePhase) var _scenePhase
     @ObservedObject var model: Model
     
+    @State private var anime: CGFloat =  1
+    
     var body: some View {
         ZStack {
             if model.locked {
+                VStack {
                     Button(action: {
                         if model.locked {
                             model.authenticate()
@@ -28,7 +31,16 @@ struct LoginView: View {
                             .font(.largeTitle)
                             .padding(40)
                     }
-                
+                }
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .background(LinearGradient(colors:[Color(UIColor.blue.withAlphaComponent(0.5)),
+                                                   Color(UIColor.yellow.withAlphaComponent(0.5))], startPoint: .top, endPoint: .bottom))
+                .scaleEffect(anime)
+                .onAppear {
+                    return withAnimation(.linear(duration: 11)) {
+                        self.anime += 0.6
+                    }
+                }
             } else {
                 if let view = viewList {
                     view
@@ -38,9 +50,6 @@ struct LoginView: View {
             }
         }
         .onChange(of: _scenePhase) { phase in
-            if phase == .background {
-                model.lock()
-            }
             print(phase)
         }
         .alert(isPresented: $model.showingALert) {

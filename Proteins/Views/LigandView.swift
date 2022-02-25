@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SceneKit
-import Foundation
 
 struct LigandView: BaseView {
     let id = UUID()
@@ -36,28 +35,26 @@ struct LigandView: BaseView {
                             .background(Color(UIColor.gray.withAlphaComponent(0.7)))
                             .cornerRadius(20, corners: .topLeft)
                             .cornerRadius(20, corners: .topRight)
+                            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                                    .onEnded({ value in
+                                        if value.translation.height > 0 {
+                                            viewModel.unselected()
+                                        }
+                                    }))
                         }
                 }
                 else {
                     HStack {
+                        Button(action:viewModel.toggleShowHydrogens) {
+                            Image(systemName: "atom")
+                                .padding(30)
+                                .foregroundColor(viewModel.showHydrogens ? Color.gray : Color.blue)
+                        }
                         Button(action:{viewModel.share()}) {
                             Image(systemName: "square.and.arrow.up")
                                 .padding(30)
-                        } .zIndex(3)
-                        Button(action: {
-                            let colors = [UIColor.black,
-                                          UIColor.gray,
-                                          UIColor.blue,
-                                          UIColor.darkGray,
-                                          UIColor.magenta,
-                                          UIColor.purple,
-                                          UIColor.yellow,
-                                          UIColor.green,
-                                          UIColor.red,
-                                          UIColor.white]
-                            
-                            viewModel.setColor(color: colors.randomElement()!)
-                        }) {
+                        }
+                        Button(action: viewModel.randColor) {
                             Image(systemName: "paintbrush")
                                 .padding(30)
                         }
@@ -70,7 +67,7 @@ struct LigandView: BaseView {
                height: UIScreen.main.bounds.height,
                alignment: .center)
         .onChange(of: scenePhase) { phase in
-            if phase == .background {
+            if phase == .background || phase == .inactive {
                 lock()
             } else if phase == .active && viewModel.scnView == nil {
                 self.presentationMode.wrappedValue.dismiss()

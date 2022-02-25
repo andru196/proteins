@@ -30,6 +30,7 @@ class SceneConstructor {
         return 1
     }
     
+    // create double connection
     func recursiveCheck(doc: Box<PdbDocument>, fromAtomNumber: Int? = nil, checkingAtomNumber: Int? = nil, visited: Box<[Int]>? = nil) -> Bool {
         if checkingAtomNumber == nil {
             for a in 0..<doc.value.atoms.count {
@@ -202,7 +203,6 @@ class SceneConstructor {
         for x in ligandBox.value.pdbDoc!.connections {
             let a1 = ligandBox.value.pdbDoc!.atoms[x.first]
             let a2 = ligandBox.value.pdbDoc!.atoms[x.second]
-            
             if !x.isDouble {
                 var stick = SCNNode()
                 stick = stick.buildLineInTwoPointsWithRotation(from: SCNVector3(x: Float(a1.x), y: Float(a1.y), z: Float(a1.z)),
@@ -211,6 +211,7 @@ class SceneConstructor {
                                                                color: UIColor.gray)
                 stick.name = "\(x.first) - \(x.second)"
                 scene.rootNode.addChildNode(stick)
+                allAtoms[stick] = a1.element == "H" ? a1 : a2
             } else {
                 let radius = Float(0.05)
                 var stick1 = SCNNode()
@@ -222,7 +223,7 @@ class SceneConstructor {
                                                                  radius: CGFloat(radius),
                                                                  color: UIColor.gray)
                 stick1.name = "1: \(x.first) - \(x.second)"
-                scene.rootNode.addChildNode(stick1)
+                
                 
                 var stick2 = SCNNode()
                 stick2 = stick2.buildLineInTwoPointsWithRotation(from: SCNVector3(x: Float(a1.x) - radius,
@@ -234,6 +235,7 @@ class SceneConstructor {
                                                                  radius: CGFloat(radius),
                                                                  color: UIColor.gray)
                 stick2.name = "2: \(x.first) - \(x.second)"
+                scene.rootNode.addChildNode(stick1)
                 scene.rootNode.addChildNode(stick2)
             }
             

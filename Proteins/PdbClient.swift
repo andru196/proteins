@@ -24,7 +24,7 @@ class PdbClient {
         let url = URL(string: "http://files.rcsb.org/ligands/view/\(name)_ideal.pdb")!
         let request = URLRequest(url: url)
         let session = URLSession.shared
-        
+        print("loading \(name) from \(url)")
         var text = ""
         let semaphore = DispatchSemaphore(value: 0)
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in

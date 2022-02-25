@@ -14,6 +14,7 @@ final class LigandViewViewMode: ObservableObject {
     @Published private(set) var showInfo: Bool = false
     @Published private(set) var dataLoaded: Bool = false
     @Published var scnView: ScenekitView!
+    @Published private(set) var showHydrogens = false
     
     private let atomInfos: [String: AtomInfo]
     private let loginableModel: Model
@@ -39,12 +40,14 @@ final class LigandViewViewMode: ObservableObject {
     
     func selected(selectedElement: SCNNode?) {
         isSelectedElement = true
-        if let sE = selectedElement {
-            if let atom = allAtoms[sE] {
-                self.selectedAtom = atom
-                self.selectedAtomInfo = atomInfos[atom.element]
-                showInfo = true
-                return
+        if let _ = selectedElement?.geometry as? SCNSphere? {
+            if let sE = selectedElement {
+                if let atom = allAtoms[sE] {
+                    self.selectedAtom = atom
+                    self.selectedAtomInfo = atomInfos[atom.element]
+                    showInfo = true
+                    return
+                }
             }
         }
         showInfo = false
@@ -60,7 +63,7 @@ final class LigandViewViewMode: ObservableObject {
         self.selectedAtom = nil
         self.selectedAtomInfo = nil
     }
-
+    
     func loadData(ligand: Ligand) -> Bool {
         dataLoaded = false
         self.ligand = ligand
@@ -78,11 +81,33 @@ final class LigandViewViewMode: ObservableObject {
         DispatchQueue.main.async {
             self.dataLoaded = true
         }
+        
+        showHydrogens = false
+        toggleShowHydrogens()
         return true
     }
     
-    func setColor(color: UIColor) {
-        scnView.scenekitClass.scene.background.contents = color
+    func randColor() {
+        let colors = [UIColor.black,
+                      UIColor.gray,
+                      UIColor.blue,
+                      UIColor.darkGray,
+                      UIColor.magenta,
+                      UIColor.purple,
+                      UIColor.yellow,
+                      UIColor.green,
+                      UIColor.red,
+                      UIColor.white]
+        scnView.scenekitClass.scene.background.contents = colors.randomElement()
+    }
+    
+    func toggleShowHydrogens() {
+        for atom in allAtoms {
+            if atom.value.element.uppercased() == "H" {
+                atom.key.isHidden = !showHydrogens
+            }
+        }
+        showHydrogens.toggle()
     }
     
     @discardableResult

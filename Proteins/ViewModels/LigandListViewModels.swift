@@ -16,9 +16,10 @@ class Ligands: ObservableObject {
     @Published var showingDetail = false
     @Published var ligandView: LigandView!
     @Published var loadedUnsuccess = false
-    @Published var isLoading = false
+    @Published var isLoading = false    
     
     func selectLigand(_ ligand: Ligand?) {
+        isLoading = true
         self.selectedLigand = ligand
     }
     

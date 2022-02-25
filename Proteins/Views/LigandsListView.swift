@@ -52,8 +52,7 @@ struct LigandsListView: BaseView {
                                 .font(.headline)
                             }
                                 .padding(5)
-                                .onTapGesture{
-                                    viewModel.isLoading = true
+                                .onTapGesture {
                                     self.viewModel.selectLigand(ligand)
                                 }
                         }
