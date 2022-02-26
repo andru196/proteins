@@ -12,21 +12,21 @@ struct LigandView: BaseView {
     let id = UUID()
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.scenePhase) var scenePhase
-    
+    @State var move: CGFloat = 0
     @ObservedObject var viewModel : LigandViewViewMode
     var loginView: Box<LoginView>
-
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             if viewModel.dataLoaded && scenePhase == .active && viewModel.scnView != nil {
                 viewModel.scnView
-                .frame(width: UIScreen.main.bounds.size.width,
+                    .frame(width: UIScreen.main.bounds.size.width,
                            height: UIScreen.main.bounds.height,
                            alignment: .center)
                     .zIndex(1)
                 if viewModel.showInfo {
-                        if let atom = viewModel.selectedAtom, let atomInfo = viewModel.selectedAtomInfo {
-                            AtomInfoView(atomInfo: atomInfo, atom: atom)
+                    if let atom = viewModel.selectedAtom, let atomInfo = viewModel.selectedAtomInfo {
+                        AtomInfoView(atomInfo: atomInfo, atom: atom)
                             .padding(10)
                             .frame(width: UIScreen.main.bounds.size.width,
                                    height: UIScreen.main.bounds.height / 2,
@@ -35,13 +35,36 @@ struct LigandView: BaseView {
                             .background(Color(UIColor.gray.withAlphaComponent(0.7)))
                             .cornerRadius(20, corners: .topLeft)
                             .cornerRadius(20, corners: .topRight)
-                            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                                    .onEnded({ value in
-                                        if value.translation.height > 0 {
-                                            viewModel.unselected()
-                                        }
-                                    }))
-                        }
+                            .offset(y: move)
+                            .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .local)
+                                        .onChanged { value in
+                                withAnimation() {
+                                    let delta = value.translation.height
+                                    if delta > 50 {
+                                        move = 50
+                                    } else if delta < 50 {
+                                        move = -50
+                                    } else {
+                                        move = delta
+                                    }
+                                }
+                            }
+                                        .onEnded { value in
+                                if value.translation.height > 15 {
+                                    withAnimation {
+                                        move = value.translation.height
+                                        viewModel.unselected()
+                                    }
+                                } else {
+                                    withAnimation {
+                                        move = 0
+                                    }
+                                }
+                            })
+                            .onAppear {
+                                move = 0
+                            }
+                    }
                 }
                 else {
                     HStack {
@@ -67,7 +90,7 @@ struct LigandView: BaseView {
                height: UIScreen.main.bounds.height,
                alignment: .center)
         .onChange(of: scenePhase) { phase in
-            if phase == .background || phase == .inactive {
+            if phase == .background {//}|| phase == .inactive {
                 lock()
             } else if phase == .active && viewModel.scnView == nil {
                 self.presentationMode.wrappedValue.dismiss()

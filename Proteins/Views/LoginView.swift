@@ -37,6 +37,9 @@ struct LoginView: View {
                                                    Color(UIColor.yellow.withAlphaComponent(0.5))], startPoint: .top, endPoint: .bottom))
                 .scaleEffect(anime)
                 .onAppear {
+                    if anime > 1 {
+                        anime = 1
+                    }
                     return withAnimation(.linear(duration: 11)) {
                         self.anime += 0.6
                     }
@@ -50,7 +53,7 @@ struct LoginView: View {
             }
         }
         .onChange(of: _scenePhase) { phase in
-            print(phase)
+            print("Phase change to \(phase)")
         }
         .alert(isPresented: $model.showingALert) {
             Alert(title: Text("NO"),
@@ -60,16 +63,19 @@ struct LoginView: View {
     }
     
     mutating func lock<T> (nextView: T) where T: BaseView {
-        
-        if let view = nextView as? LigandView {
-            ligandView = view
-            viewList = nil
+        if !model.locked {
+            if let view = nextView as? LigandView {
+                ligandView = view
+                viewList = nil
+            } else {
+                viewList = nextView as? LigandsListView
+                ligandView = nil
+            }
+            model.lock()
+            print("app locked")
         } else {
-            viewList = nextView as? LigandsListView
-            ligandView = nil
+            print("still locked")
         }
-        model.lock()
-        print("app locked")
     }
     
     

@@ -47,6 +47,7 @@ class Model: ObservableObject {
                 DispatchQueue.main.sync {
                     if success {
                         self.locked = false
+                        print("App unlocked")
                     } else {
                         self.locked = true
                         self.showingALert = true

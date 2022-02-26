@@ -164,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				B25CA9F7278B50E100170C2D /* LigandsListView.swift */,
+				B271D5C027BFEB3500D6EF6D /* BaseView.swift */,
 				B271D5BE27BFEA8E00D6EF6D /* LoginView.swift */,
 				B2148E4B27B478C900ACFDAE /* LigandView.swift */,
 				B2454BA927C6867000750B0E /* AtomInfoView.swift */,
@@ -189,7 +190,6 @@
 			children = (
 				B2148E4927B46D0100ACFDAE /* Ligand.swift */,
 				B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */,
-				B271D5C027BFEB3500D6EF6D /* BaseView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

@@ -76,7 +76,7 @@ struct LigandsListView: BaseView {
             }
         }
         .onChange(of: _scenePhase) { phase in
-            if phase == .background || phase == .inactive {
+            if phase == .background {//|| phase == .inactive {
                 lock()
             }
         }
