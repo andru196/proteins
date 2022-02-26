@@ -75,9 +75,11 @@ final class LigandViewViewMode: ObservableObject {
         self.ligand!.pdbDoc = boxDoc.value
         let boxLig = Box(value: self.ligand)
         let scene = SCNScene()
-        self.allAtoms = constructor.generate(scene: scene, ligandBox: boxLig)
-        scnView = ScenekitView(scenekitClass: ScenekitClass(scene:  scene, viewModel: self))
-        objectWillChange.send()
+        DispatchQueue.main.sync {
+            self.allAtoms = constructor.generate(scene: scene, ligandBox: boxLig)
+            scnView = ScenekitView(scenekitClass: ScenekitClass(scene:  scene, viewModel: self))
+        }
+//        objectWillChange.send()
         DispatchQueue.main.async {
             self.dataLoaded = true
         }

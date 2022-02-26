@@ -25,13 +25,24 @@ class Ligands: ObservableObject {
     
     func onAppearLoading(loader: @escaping (Ligand) -> Bool) {
         if isLoading && selectedLigand != nil {
-            DispatchQueue.main.async {
-                self.loadedUnsuccess = !loader(self.selectedLigand)
-                self.isLoading = false
-                if !self.loadedUnsuccess {
-                    self.showingDetail = true
+            let concurrentQueue = DispatchQueue(label: "loadDataQueue", attributes: .concurrent)
+            concurrentQueue.async {
+                 let rez = !loader(self.selectedLigand)
+                DispatchQueue.main.sync {
+                    self.loadedUnsuccess = rez
+                    self.isLoading = false
+                    if !self.loadedUnsuccess {
+                        self.showingDetail = true
+                    }
                 }
             }
+//            DispatchQueue.main.async {
+//                self.loadedUnsuccess = !loader(self.selectedLigand)
+//                self.isLoading = false
+//                if !self.loadedUnsuccess {
+//                    self.showingDetail = true
+//                }
+//            }
         }
     }
     

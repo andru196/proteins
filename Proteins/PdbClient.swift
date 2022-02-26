@@ -38,6 +38,7 @@ class PdbClient {
             }
             text = String(data: data, encoding: .utf8)!
             print(text)
+            sleep(1)
             semaphore.signal()
         })
         task.resume()

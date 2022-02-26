@@ -17,15 +17,25 @@ struct LigandsListView: BaseView {
 
     @State private var scale: CGFloat = 0.1
     @State private var ligandView: LigandView!
-
+    @State private var rotation = 0.1
     
     var body: some View {
         NavigationView {
             ZStack {
                 if viewModel.isLoading {
                     VStack {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                        Text("42")
+                            .font(.largeTitle)
+                            .padding(10)
+                            .rotation3DEffect(.degrees(rotation), axis: (x: 1, y: 0, z: 1))
+                            .onAppear {
+                                self.rotation = 0
+                                let baseAnimation = Animation.linear(duration: 0.7)
+                                let repeated = baseAnimation.repeatForever(autoreverses: false)
+                                return withAnimation(repeated) {
+                                    self.rotation = 360
+                                }
+                            }
                         Text("Loading...")
                     }
                     .zIndex(3)
@@ -35,6 +45,7 @@ struct LigandsListView: BaseView {
                     .cornerRadius(20, corners: .topLeft)
                     .onAppear {
                         viewModel.onAppearLoading(loader: lv.viewModel.loadData)
+                        
                     }
                 }
                 VStack {
