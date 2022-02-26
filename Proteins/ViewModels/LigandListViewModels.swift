@@ -17,6 +17,11 @@ class Ligands: ObservableObject {
     @Published var ligandView: LigandView!
     @Published var loadedUnsuccess = false
     @Published var isLoading = false    
+    var searchedItems: [Ligand] {
+        get {
+            items.filter{searchText.isEmpty || $0.name.uppercased().contains(searchText.uppercased())}
+        }
+    }
     
     func selectLigand(_ ligand: Ligand?) {
         isLoading = true
@@ -36,13 +41,6 @@ class Ligands: ObservableObject {
                     }
                 }
             }
-//            DispatchQueue.main.async {
-//                self.loadedUnsuccess = !loader(self.selectedLigand)
-//                self.isLoading = false
-//                if !self.loadedUnsuccess {
-//                    self.showingDetail = true
-//                }
-//            }
         }
     }
     

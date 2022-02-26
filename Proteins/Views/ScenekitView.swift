@@ -60,10 +60,9 @@ class ScenekitClass {
         if hitResults.count > 0 {
             
             let result = hitResults[0]
-
+            print("Tapped on \(result.node.name ?? "unnamed")")
             self.viewModel.selected(selectedElement: result.node)
             let material = result.node.geometry!.firstMaterial
-            
             SCNTransaction.begin()
             SCNTransaction.animationDuration = 0.5
 

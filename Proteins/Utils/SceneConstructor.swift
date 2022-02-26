@@ -237,6 +237,9 @@ class SceneConstructor {
                 stick2.name = "2: \(x.first) - \(x.second)"
                 scene.rootNode.addChildNode(stick1)
                 scene.rootNode.addChildNode(stick2)
+                
+                allAtoms[stick1] = a1.element == "H" ? a1 : a2
+                allAtoms[stick2] = a1.element == "H" ? a1 : a2
             }
             
         }

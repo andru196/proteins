@@ -27,7 +27,9 @@ struct LigandsListView: BaseView {
                         Text("42")
                             .font(.largeTitle)
                             .padding(10)
-                            .rotation3DEffect(.degrees(rotation), axis: (x: 1, y: 0, z: 1))
+                            .rotation3DEffect(.degrees(rotation), axis: (x: CGFloat.random(in: -1...1),
+                                                                         y: CGFloat.random(in: -1...1),
+                                                                         z: CGFloat.random(in: -1...1)))
                             .onAppear {
                                 self.rotation = 0
                                 let baseAnimation = Animation.linear(duration: 0.7)
@@ -57,7 +59,7 @@ struct LigandsListView: BaseView {
                         .padding()
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     List {
-                        ForEach(viewModel.items.filter{viewModel.searchText.isEmpty || $0.name.contains(viewModel.searchText)}, id: \.id) { ligand in
+                        ForEach(viewModel.searchedItems, id: \.id) { ligand in
                             HStack {
                                 Text(ligand.name)
                                 .font(.headline)

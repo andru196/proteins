@@ -65,7 +65,9 @@ final class LigandViewViewMode: ObservableObject {
     }
     
     func loadData(ligand: Ligand) -> Bool {
-        dataLoaded = false
+        DispatchQueue.main.async {
+            self.dataLoaded = false
+        }
         self.ligand = ligand
         let boxDoc = Box(value: client.gePdb(name: ligand.name))
         if boxDoc.value == nil || boxDoc.value.atoms.isEmpty || boxDoc.value.connections.isEmpty {
@@ -79,13 +81,11 @@ final class LigandViewViewMode: ObservableObject {
             self.allAtoms = constructor.generate(scene: scene, ligandBox: boxLig)
             scnView = ScenekitView(scenekitClass: ScenekitClass(scene:  scene, viewModel: self))
         }
-//        objectWillChange.send()
         DispatchQueue.main.async {
             self.dataLoaded = true
+            self.showHydrogens = false
+            self.toggleShowHydrogens()
         }
-        
-        showHydrogens = false
-        toggleShowHydrogens()
         return true
     }
     
