@@ -33,9 +33,6 @@
 		B25CA9F8278B50E100170C2D /* LigandsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CA9F7278B50E100170C2D /* LigandsListView.swift */; };
 		B25CA9FA278B50E200170C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B25CA9F9278B50E200170C2D /* Assets.xcassets */; };
 		B25CA9FD278B50E200170C2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B25CA9FC278B50E200170C2D /* Preview Assets.xcassets */; };
-		B25CAA07278B50E200170C2D /* ProteinsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CAA06278B50E200170C2D /* ProteinsTests.swift */; };
-		B25CAA11278B50E200170C2D /* ProteinsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CAA10278B50E200170C2D /* ProteinsUITests.swift */; };
-		B25CAA13278B50E200170C2D /* ProteinsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CAA12278B50E200170C2D /* ProteinsUITestsLaunchTests.swift */; };
 		B271D5B827BD821300D6EF6D /* ScenekitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5B727BD821300D6EF6D /* ScenekitView.swift */; };
 		B271D5BA27BEDEB600D6EF6D /* PeriodicTable.json in Resources */ = {isa = PBXBuildFile; fileRef = B271D5B927BEDEB600D6EF6D /* PeriodicTable.json */; };
 		B271D5BC27BEDFBD00D6EF6D /* AtomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */; };
@@ -46,23 +43,6 @@
 		B2F9AB3727BBECBC006E82EA /* PdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3627BBECBC006E82EA /* PdbClient.swift */; };
 		B2F9AB3A27BBEE0C006E82EA /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F9AB3927BBEE0C006E82EA /* Configurator.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		B25CAA03278B50E200170C2D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B25CA9EA278B50E100170C2D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B25CA9F1278B50E100170C2D;
-			remoteInfo = Proteins;
-		};
-		B25CAA0D278B50E200170C2D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B25CA9EA278B50E100170C2D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B25CA9F1278B50E100170C2D;
-			remoteInfo = Proteins;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B2148E4727B4659900ACFDAE /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
@@ -92,11 +72,6 @@
 		B25CA9F7278B50E100170C2D /* LigandsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandsListView.swift; sourceTree = "<group>"; };
 		B25CA9F9278B50E200170C2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B25CA9FC278B50E200170C2D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		B25CAA02278B50E200170C2D /* ProteinsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProteinsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B25CAA06278B50E200170C2D /* ProteinsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsTests.swift; sourceTree = "<group>"; };
-		B25CAA0C278B50E200170C2D /* ProteinsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProteinsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B25CAA10278B50E200170C2D /* ProteinsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsUITests.swift; sourceTree = "<group>"; };
-		B25CAA12278B50E200170C2D /* ProteinsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B271D5B727BD821300D6EF6D /* ScenekitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenekitView.swift; sourceTree = "<group>"; };
 		B271D5B927BEDEB600D6EF6D /* PeriodicTable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PeriodicTable.json; sourceTree = "<group>"; };
 		B271D5BB27BEDFBD00D6EF6D /* AtomInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomInfo.swift; sourceTree = "<group>"; };
@@ -111,20 +86,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		B25CA9EF278B50E100170C2D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B25CA9FF278B50E200170C2D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B25CAA09278B50E200170C2D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -208,8 +169,6 @@
 			isa = PBXGroup;
 			children = (
 				B25CA9F4278B50E100170C2D /* Proteins */,
-				B25CAA05278B50E200170C2D /* ProteinsTests */,
-				B25CAA0F278B50E200170C2D /* ProteinsUITests */,
 				B25CA9F3278B50E100170C2D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -218,8 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				B25CA9F2278B50E100170C2D /* Proteins.app */,
-				B25CAA02278B50E200170C2D /* ProteinsTests.xctest */,
-				B25CAA0C278B50E200170C2D /* ProteinsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -253,23 +210,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		B25CAA05278B50E200170C2D /* ProteinsTests */ = {
-			isa = PBXGroup;
-			children = (
-				B25CAA06278B50E200170C2D /* ProteinsTests.swift */,
-			);
-			path = ProteinsTests;
-			sourceTree = "<group>";
-		};
-		B25CAA0F278B50E200170C2D /* ProteinsUITests */ = {
-			isa = PBXGroup;
-			children = (
-				B25CAA10278B50E200170C2D /* ProteinsUITests.swift */,
-				B25CAA12278B50E200170C2D /* ProteinsUITestsLaunchTests.swift */,
-			);
-			path = ProteinsUITests;
-			sourceTree = "<group>";
-		};
 		B2F9AB3827BBEDF5006E82EA /* DI */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,42 +238,6 @@
 			productReference = B25CA9F2278B50E100170C2D /* Proteins.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B25CAA01278B50E200170C2D /* ProteinsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B25CAA19278B50E200170C2D /* Build configuration list for PBXNativeTarget "ProteinsTests" */;
-			buildPhases = (
-				B25CA9FE278B50E200170C2D /* Sources */,
-				B25CA9FF278B50E200170C2D /* Frameworks */,
-				B25CAA00278B50E200170C2D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B25CAA04278B50E200170C2D /* PBXTargetDependency */,
-			);
-			name = ProteinsTests;
-			productName = ProteinsTests;
-			productReference = B25CAA02278B50E200170C2D /* ProteinsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		B25CAA0B278B50E200170C2D /* ProteinsUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B25CAA1C278B50E200170C2D /* Build configuration list for PBXNativeTarget "ProteinsUITests" */;
-			buildPhases = (
-				B25CAA08278B50E200170C2D /* Sources */,
-				B25CAA09278B50E200170C2D /* Frameworks */,
-				B25CAA0A278B50E200170C2D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B25CAA0E278B50E200170C2D /* PBXTargetDependency */,
-			);
-			name = ProteinsUITests;
-			productName = ProteinsUITests;
-			productReference = B25CAA0C278B50E200170C2D /* ProteinsUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -346,14 +250,6 @@
 				TargetAttributes = {
 					B25CA9F1278B50E100170C2D = {
 						CreatedOnToolsVersion = 13.2.1;
-					};
-					B25CAA01278B50E200170C2D = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = B25CA9F1278B50E100170C2D;
-					};
-					B25CAA0B278B50E200170C2D = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = B25CA9F1278B50E100170C2D;
 					};
 				};
 			};
@@ -371,8 +267,6 @@
 			projectRoot = "";
 			targets = (
 				B25CA9F1278B50E100170C2D /* Proteins */,
-				B25CAA01278B50E200170C2D /* ProteinsTests */,
-				B25CAA0B278B50E200170C2D /* ProteinsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -387,20 +281,6 @@
 				B271D5BA27BEDEB600D6EF6D /* PeriodicTable.json in Resources */,
 				B25CA9FA278B50E200170C2D /* Assets.xcassets in Resources */,
 				B2148E4E27B8228B00ACFDAE /* 011_ideal.pdb.txt in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B25CAA00278B50E200170C2D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B25CAA0A278B50E200170C2D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,37 +324,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B25CA9FE278B50E200170C2D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B25CAA07278B50E200170C2D /* ProteinsTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B25CAA08278B50E200170C2D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B25CAA13278B50E200170C2D /* ProteinsUITestsLaunchTests.swift in Sources */,
-				B25CAA11278B50E200170C2D /* ProteinsUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B25CAA04278B50E200170C2D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B25CA9F1278B50E100170C2D /* Proteins */;
-			targetProxy = B25CAA03278B50E200170C2D /* PBXContainerItemProxy */;
-		};
-		B25CAA0E278B50E200170C2D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B25CA9F1278B50E100170C2D /* Proteins */;
-			targetProxy = B25CAA0D278B50E200170C2D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B25CAA14278B50E200170C2D /* Debug */ = {
@@ -655,82 +505,6 @@
 			};
 			name = Release;
 		};
-		B25CAA1A278B50E200170C2D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 76HC36583V;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ecole42.ProteinsTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Proteins.app/Proteins";
-			};
-			name = Debug;
-		};
-		B25CAA1B278B50E200170C2D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 76HC36583V;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ecole42.ProteinsTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Proteins.app/Proteins";
-			};
-			name = Release;
-		};
-		B25CAA1D278B50E200170C2D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 76HC36583V;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ecole42.ProteinsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Proteins;
-			};
-			name = Debug;
-		};
-		B25CAA1E278B50E200170C2D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 76HC36583V;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ecole42.ProteinsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Proteins;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -748,24 +522,6 @@
 			buildConfigurations = (
 				B25CAA17278B50E200170C2D /* Debug */,
 				B25CAA18278B50E200170C2D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B25CAA19278B50E200170C2D /* Build configuration list for PBXNativeTarget "ProteinsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B25CAA1A278B50E200170C2D /* Debug */,
-				B25CAA1B278B50E200170C2D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B25CAA1C278B50E200170C2D /* Build configuration list for PBXNativeTarget "ProteinsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B25CAA1D278B50E200170C2D /* Debug */,
-				B25CAA1E278B50E200170C2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
